@@ -28,4 +28,8 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     public void OnPushGameRestartButton () {
         print ("ゲームリスタート");
     }
+
+    public void OnPushTitleButton () {
+        print ("タイトルにもどる");
+    }
 }

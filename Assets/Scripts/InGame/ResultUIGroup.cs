@@ -10,4 +10,8 @@ public class ResultUIGroup : MonoBehaviour {
     public void OnPushGameRestartButton () {
         UIManager.Instance.OnPushGameRestartButton ();
     }
+
+    public void OnPushGameTitleButton () {
+        UIManager.Instance.OnPushTitleButton ();
+    }
 }
