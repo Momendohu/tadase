@@ -94,11 +94,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprites:
-  - {fileID: 21300000, guid: fa4be577ee130584daeb9a708e9d1a5e, type: 3}
-  - {fileID: 21300000, guid: 639ef820edee6ba44b542f4837261ccc, type: 3}
-  - {fileID: 21300000, guid: 45ce218c15c2ff4429d5b33954d3d7a1, type: 3}
-  - {fileID: 21300000, guid: 02ee2a5ccac1b2b4a86eafa48acf20ad, type: 3}
-  - {fileID: 21300000, guid: b186ded65cc37d24296fcc09e526db44, type: 3}
+  - {fileID: 21300000, guid: 48ffb38fc1a7e44c3891095efc83b037, type: 3}
+  - {fileID: 21300000, guid: 1457f4a5fc39342be8d4248149286e9f, type: 3}
+  - {fileID: 21300000, guid: 5105b2eb775f2484f89b95e13542bd83, type: 3}
 --- !u!212 &5363205128114808685
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -40,7 +40,8 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
                 break;
 
             case GameStatus.Result:
-                Debug.Log("ゲーム終了");
+                //Debug.Log("ゲーム終了");
+                UIManager.Instance.ShowResultUIGroup();
                 break;
         }
     }
