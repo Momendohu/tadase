@@ -12,10 +12,10 @@ public class TitleManager : MonoBehaviour {
     }
 
     public void OnPushRankingButton () {
-        naichilab.RankingLoader.Instance.SendScoreAndShowRanking (0);
+        UIManager.Instance.OnPushRankingButton();
     }
 
     public void OnPushGameStartButton () {
-        print ("ゲームスタート");
+        UIManager.Instance.OnPushGameStartButton();
     }
 }
