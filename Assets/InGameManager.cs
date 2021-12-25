@@ -8,7 +8,8 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
     {
         InGameReady,
         InGame,
-        Result,
+        ResultDisplay,
+        ResultReady,
     }
 
     public GameStatus status { get { return _status; } }
@@ -46,12 +47,16 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
                 UIManager.Instance.UpdateTimeUI(((int)_limitTime).ToString());
 
                 if (_limitTime < 0)
-                    _status = GameStatus.Result;
+                    _status = GameStatus.ResultDisplay;
                 break;
 
-            case GameStatus.Result:
+            case GameStatus.ResultDisplay:
                 //Debug.Log("ƒQ[ƒ€I—¹");
                 UIManager.Instance.ShowResultUIGroup();
+                _status = GameStatus.ResultReady;
+                break;
+
+            case GameStatus.ResultReady:
                 break;
         }
     }
@@ -77,10 +82,29 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
 
         UIManager.Instance.UpdateScoreUI(_score.ToString());
 
-        if(_tadashiNum < TadashiMax)
+        if (_tadashiNum < TadashiMax)
         {
             _tadashiNum++;
         }
+    }
+
+    public bool IsPlayebleStatus()
+    {
+        bool result = false;
+
+        switch (_status)
+        {
+            case GameStatus.InGame:
+                result = true;
+                break;
+            case GameStatus.InGameReady:
+            case GameStatus.ResultDisplay:
+            case GameStatus.ResultReady:
+                result = false;
+                break;
+        }
+
+        return result;
     }
 
     private void ResetLevel()
@@ -105,7 +129,7 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
         return _bonusScore;
     }
 
-    const float LimitMaxTime = 60f;
+    const float LimitMaxTime = 1.0f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 30;
 
@@ -113,10 +137,9 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
     const int AddBonusScore = 2;
 
     private float _limitTime = 0.0f;
-
-    private int _correctNum;
     private GameStatus _status;
     private int _tadashiNum;
-    private int _score;
+    private int _correctNum;
     private int _bonusScore;
+    private int _score;
 }

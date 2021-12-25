@@ -30,7 +30,7 @@ public class TadashiEntity : MonoBehaviour
 
     public void CheckAnswer()
     {
-        if (InGameManager.Instance.status == InGameManager.GameStatus.Result)
+        if (InGameManager.Instance.IsPlayebleStatus())
             return;
 
         bool isCorrect = false;
