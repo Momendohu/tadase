@@ -20,12 +20,12 @@ public class ScoreUI : MonoBehaviour {
 
         var sequence = DOTween.Sequence ();
 
-        sequence.Append (addText.transform.DOLocalMoveX (30, 0))
+        sequence.Append (addText.GetComponent<RectTransform> ().DOLocalMoveX (30, 0))
             .Append (addText.GetComponent<Text> ().DOFade (0, 0f))
             .Append (addText.GetComponent<Text> ().DOFade (1, 0.2f))
-            .Join (addText.transform.DOLocalMoveX (50, 0.2f))
+            .Join (addText.GetComponent<RectTransform> ().DOLocalMoveX (50, 0.2f))
             .AppendInterval (1)
             .Append (addText.GetComponent<Text> ().DOFade (0, 0.2f))
-            .Join (addText.transform.DOLocalMoveX (70, 0.2f));
+            .Join (addText.GetComponent<RectTransform> ().DOLocalMoveX (70, 0.2f));
     }
 }

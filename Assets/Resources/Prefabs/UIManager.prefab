@@ -46,3 +46,4 @@ MonoBehaviour:
   uiResultGroup: {fileID: 3634367637220667556, guid: 1db9933a78700435ca7e9ef773804317, type: 3}
   timeUI: {fileID: 2478699403914677142, guid: a1dd22248386d4a6cb2d829d5580d183, type: 3}
   scoreUI: {fileID: 7641149472417831892, guid: 70e12342d21ba4dfd8d57e19c018cf9e, type: 3}
+  tadashiTextUI: {fileID: 5583086914535292803, guid: eb7dd5add740a4a3aaddf2f4db1ac6c6, type: 3}
