@@ -19,7 +19,7 @@ public class TadashiEntity : MonoBehaviour
 
     public void Initialzie(int uniqueId, int pictId)
     {
-        _image = _sprite[pictId];
+        ChangeImage(pictId);
 
         _uniqueId = uniqueId;
         _pictId = pictId;
@@ -30,16 +30,14 @@ public class TadashiEntity : MonoBehaviour
 
     }
 
-    public void ChangeButtonImage()
+    public void ChangeImage(int pictId)
     {
-        
+        var renderer = GetComponent<SpriteRenderer>();
+        renderer.sprite = _sprites[pictId];
     }
 
     [SerializeField]
-    private Sprite[] _sprite;
-
-    [SerializeField]
-    private Sprite _image;
+    private Sprite[] _sprites;
 
     private int _uniqueId;
     private int _pictId;

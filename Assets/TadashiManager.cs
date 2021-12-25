@@ -28,7 +28,7 @@ public class TadashiManager : MonoBehaviour
 
             GameObject tadashi = (GameObject)Instantiate(obj, pos, Quaternion.identity);
             TadashiEntity entity = tadashi.GetComponent<TadashiEntity>();
-            entity.Initialzie(uniqueId, 0);
+            entity.Initialzie(uniqueId, 3);
         }
 
         Resources.UnloadUnusedAssets();
