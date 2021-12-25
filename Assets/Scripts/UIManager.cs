@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIManager : SingletonMonoBehaviour<UIManager> {
+    [SerializeField]
+    private GameObject uiResultGroup = null;
 
     [SerializeField]
-    public GameObject uiResultGroup = null;
+    private TimeUI timeUI = null;
+
+    [SerializeField]
+    private ScoreUI scoreUI = null;
 
     protected override void Awake () {
         base.Awake ();
@@ -40,5 +45,13 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
 
     public void OnPushTitleButton () {
         SceneManager.LoadScene ("Title");
+    }
+
+    public void UpdateTimeUI (string str) {
+        timeUI.UpdateText (str);
+    }
+
+    public void UpdateScoreUI (string str) {
+        scoreUI.UpdateText (str);
     }
 }
