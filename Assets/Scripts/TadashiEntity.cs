@@ -33,15 +33,18 @@ public class TadashiEntity : MonoBehaviour
         if (InGameManager.Instance.status == InGameManager.GameStatus.Result)
             return;
 
+        bool isCorrect = false;
         if (_isAnswer)
         {
-            InGameManager.Instance.NextLevel();
+            isCorrect = true;
             Debug.Log("正解！！！！！！！！！！！");
         }
         else
         {
             Debug.Log("不正解・・・・");
         }
+
+        InGameManager.Instance.UpdateLevel(isCorrect);
     }
 
     public void ChangeImage(Sprite sprite)
