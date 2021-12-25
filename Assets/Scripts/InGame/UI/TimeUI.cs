@@ -20,10 +20,12 @@ public class TimeUI : MonoBehaviour {
 
         var sequence = DOTween.Sequence ();
 
-        sequence.Append (addText.GetComponent<Text> ().DOFade (0, 0f))
-            .Append (addText.GetComponent<Text> ().DOFade (1, 0.1f))
-            .Join (addText.transform.DOLocalMoveX (50, 0.1f))
-            .Append (addText.GetComponent<Text> ().DOFade (0, 0.1f))
-            .Join (addText.transform.DOLocalMoveX (70, 0.1f));
+        sequence.Append (addText.transform.DOLocalMoveX (30, 0))
+            .Append (addText.GetComponent<Text> ().DOFade (0, 0f))
+            .Append (addText.GetComponent<Text> ().DOFade (1, 0.2f))
+            .Join (addText.transform.DOLocalMoveX (50, 0.2f))
+            .AppendInterval (1)
+            .Append (addText.GetComponent<Text> ().DOFade (0, 0.2f))
+            .Join (addText.transform.DOLocalMoveX (70, 0.2f));
     }
 }
