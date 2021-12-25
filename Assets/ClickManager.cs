@@ -26,6 +26,7 @@ public class ClickManager : MonoBehaviour
             Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
             if (collition2d)
             {
+                Debug.Log(collition2d.gameObject.name);
                 result = collition2d.transform.gameObject;
             }
         }

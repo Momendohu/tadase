@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class TadashiEntity : MonoBehaviour
 {
-    public int uniqueId { get; set; }
-    public int pictId { get; set; }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +19,10 @@ public class TadashiEntity : MonoBehaviour
 
     public void Initialzie(int uniqueId, int pictId)
     {
+        _image = _sprite[pictId];
 
+        _uniqueId = uniqueId;
+        _pictId = pictId;
     }
 
     public void CheckAnswer()
@@ -37,4 +37,10 @@ public class TadashiEntity : MonoBehaviour
 
     [SerializeField]
     private Sprite[] _sprite;
+
+    [SerializeField]
+    private Sprite _image;
+
+    private int _uniqueId;
+    private int _pictId;
 }
