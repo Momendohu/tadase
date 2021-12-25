@@ -30,6 +30,7 @@ public class TadashiEntity : MonoBehaviour
     {
         if (_isAnswer)
         {
+            InGameManager.Instance.NextLevel();
             Debug.Log("正解！！！！！！！！！！！");
         }
         else

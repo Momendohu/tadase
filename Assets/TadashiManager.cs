@@ -2,44 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TadashiManager : MonoBehaviour
+public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
 {
     public int answerPictId;
     public int notAnswerPictId;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
-        Initialzie();
+        base.Awake();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Initialzie()
     {
         _tadashiList.Clear();
+    }
 
+    public void TadashiSetting()
+    {
         SetAnswer();
 
         for (int idx = 0; idx < TadashiMax; idx++)
         {
             int uniqueId = 0;
-
-            GameObject obj = (GameObject)Resources.Load("Prefabs/Tadashi");
-
-            Vector2 pos = RandomPos();
-
             int pictId = idx == 0 ? answerPictId : notAnswerPictId;
 
-            GameObject tadashi = (GameObject)Instantiate(obj, pos, Quaternion.identity);
-            TadashiEntity entity = tadashi.GetComponent<TadashiEntity>();
-            entity.Initialzie(uniqueId, pictId, pictId == answerPictId);
+            TadashiEntity entity;
 
-            _tadashiList.Add(entity);
+            if ((_tadashiList.Count - 1) < idx)
+            {
+                GameObject obj = (GameObject)Resources.Load("Prefabs/Tadashi");
+
+                GameObject tadashi = (GameObject)Instantiate(obj, Vector2.zero, Quaternion.identity);
+                entity = tadashi.GetComponent<TadashiEntity>();
+                _tadashiList.Add(entity);
+                Debug.Log("ìoò^ÅIÅI : " + idx);
+            }
+            else
+            {
+                entity = _tadashiList[idx];
+            }
+
+            RandomPos(entity.gameObject);
+
+            entity.Initialzie(uniqueId, pictId, pictId == answerPictId);
         }
 
         Resources.UnloadUnusedAssets();
@@ -51,7 +63,7 @@ public class TadashiManager : MonoBehaviour
         Debug.Log("ê≥âID : " + answerPictId);
 
         int pictId = -1;
-        while(pictId < 0 || answerPictId == pictId)
+        while (pictId < 0 || answerPictId == pictId)
         {
             pictId = Random.Range(0, 3);
         }
@@ -61,14 +73,14 @@ public class TadashiManager : MonoBehaviour
 
     }
 
-    private Vector2 RandomPos()
+    private void RandomPos(GameObject obj)
     {
         Vector2 pos = new Vector2();
 
         pos.x = Random.Range((ScreenWidthMax * -1), ScreenWidthMax);
         pos.y = Random.Range((ScreenHeightMax * -1), ScreenHeightMax);
 
-        return pos;
+        obj.transform.localPosition = pos;
     }
 
     const float ScreenHeightMax = 5.0f;
