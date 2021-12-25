@@ -4,18 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIManager : SingletonMonoBehaviour<UIManager> {
+
+    [SerializeField]
+    public GameObject uiResultGroup = null;
+
     protected override void Awake () {
         base.Awake ();
     }
 
-    // Start is called before the first frame update
-    void Start () {
+    public void ShowResultUIGroup () {
+        var obj = Instantiate (uiResultGroup);
 
-    }
+        var uiRootList = GameObject.FindGameObjectsWithTag ("UI");
+        var canvasRoot = uiRootList[0].transform; //OPTIMISE:UIタグのCanvasがある前提
+        if (!canvasRoot) {
+            print ("canvasがうまく参照できてないよ");
+            Destroy (obj);
+            return;
+        }
 
-    // Update is called once per frame
-    void Update () {
-
+        obj.transform.SetParent (canvasRoot, false);
     }
 
     public void OnPushRankingButton () {
@@ -23,14 +31,14 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     }
 
     public void OnPushGameStartButton () {
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene ("InGame");
     }
 
     public void OnPushGameRestartButton () {
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene ("InGame");
     }
 
     public void OnPushTitleButton () {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene ("Title");
     }
 }

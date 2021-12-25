@@ -1092,6 +1092,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3037332888417559326, guid: 745269678e0ee4ea2b11d7f48e112103, type: 3}
+      propertyPath: uiResultGroup
+      value: 
+      objectReference: {fileID: 3634367637220667556, guid: 1db9933a78700435ca7e9ef773804317, type: 3}
     - target: {fileID: 5852060571610601366, guid: 745269678e0ee4ea2b11d7f48e112103, type: 3}
       propertyPath: m_Name
       value: UIManager
@@ -1235,7 +1239,7 @@ GameObject:
   - component: {fileID: 2103638476}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
