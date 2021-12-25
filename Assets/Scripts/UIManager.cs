@@ -8,27 +8,53 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     private GameObject uiResultGroup = null;
 
     [SerializeField]
-    private TimeUI timeUI = null;
+    private GameObject timeUI = null;
 
     [SerializeField]
-    private ScoreUI scoreUI = null;
+    private GameObject scoreUI = null;
+
+    private GameObject timeUIInstance = null;
+
+    private GameObject scoreUIInstance = null;
 
     protected override void Awake () {
         base.Awake ();
     }
 
     public void ShowResultUIGroup () {
-        var obj = Instantiate (uiResultGroup);
+        this.CreateUI (uiResultGroup);
+    }
 
-        var uiRootList = GameObject.FindGameObjectsWithTag ("UI");
-        var canvasRoot = uiRootList[0].transform; //OPTIMIZE:UIタグのCanvasがある前提
+    public void ShowTimeUI () {
+        timeUIInstance = this.CreateUI (timeUI);
+    }
+
+    public void ShowScoreUI () {
+        scoreUIInstance = this.CreateUI (scoreUI);
+    }
+
+    private GameObject CreateUI (GameObject prefab) {
+        var obj = Instantiate (prefab);
+
+        var canvasRoot = getCanvasRoot ();
         if (!canvasRoot) {
             print ("canvasがうまく参照できてないよ");
             Destroy (obj);
-            return;
+            return null;
         }
 
         obj.transform.SetParent (canvasRoot, false);
+
+        return obj;
+    }
+
+    private Transform getCanvasRoot () {
+        var uiRootList = GameObject.FindGameObjectsWithTag ("UI");
+        if (uiRootList.Length == 0) {
+            return null;
+        }
+
+        return uiRootList[0].transform; //OPTIMIZE:UIタグのCanvasがある前提
     }
 
     public void OnPushRankingButton () {
@@ -48,10 +74,10 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     }
 
     public void UpdateTimeUI (string str) {
-        timeUI.UpdateText (str);
+        timeUIInstance.GetComponent<TimeUI> ().UpdateText (str);
     }
 
     public void UpdateScoreUI (string str) {
-        scoreUI.UpdateText (str);
+        scoreUIInstance.GetComponent<ScoreUI> ().UpdateText (str);
     }
 }

@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiResultGroup: {fileID: 3634367637220667556, guid: 1db9933a78700435ca7e9ef773804317, type: 3}
-  timeUI: {fileID: 4513386362713720320, guid: a1dd22248386d4a6cb2d829d5580d183, type: 3}
-  scoreUI: {fileID: 3945639502394694263, guid: 70e12342d21ba4dfd8d57e19c018cf9e, type: 3}
+  timeUI: {fileID: 2478699403914677142, guid: a1dd22248386d4a6cb2d829d5580d183, type: 3}
+  scoreUI: {fileID: 7641149472417831892, guid: 70e12342d21ba4dfd8d57e19c018cf9e, type: 3}
