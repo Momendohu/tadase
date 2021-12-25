@@ -18,6 +18,7 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
     void Start()
     {
         _status = GameStatus.InGameReady;
+        _tadashiNum = TadashiMinimum;
     }
 
     // Update is called once per frame
@@ -28,7 +29,7 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
             case GameStatus.InGameReady:
                 _limitTime = LimitMaxTime;
                 _correctNum = 0;
-                TadashiManager.Instance.TadashiSetting();
+                TadashiManager.Instance.TadashiSetting(_tadashiNum);
 
                 UIManager.Instance.ShowScoreUI();
                 UIManager.Instance.UpdateScoreUI(_correctNum.ToString());
@@ -55,18 +56,67 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
         }
     }
 
+    public void UpdateLevel(bool isCorrect)
+    {
+        if (isCorrect)
+        {
+            NextLevel();
+        }
+        else
+        {
+            ResetLevel();
+        }
+
+        TadashiManager.Instance.TadashiSetting(_tadashiNum);
+    }
+
     public void NextLevel()
     {
         _correctNum++;
+        _score += CalcScore(_correctNum);
 
-        UIManager.Instance.UpdateScoreUI(_correctNum.ToString());
+        UIManager.Instance.UpdateScoreUI(_score.ToString());
 
-        TadashiManager.Instance.TadashiSetting();
+        if(_tadashiNum < TadashiMax)
+        {
+            _tadashiNum++;
+        }
     }
 
-    const float LimitMaxTime = 10f;
+    private void ResetLevel()
+    {
+        _correctNum = 0;
+        _bonusScore = 0;
+        _tadashiNum = TadashiMinimum;
+    }
+
+    private int CalcScore(int correctNum)
+    {
+        int bonus = CalcBonus(correctNum);
+
+        return bonus += 1;
+    }
+
+    private int CalcBonus(int correctNum)
+    {
+        if (correctNum % BonusLine == 0)
+            _bonusScore += AddBonusScore;
+
+        return _bonusScore;
+    }
+
+    const float LimitMaxTime = 60f;
+    const int TadashiMinimum = 3;
+    const int TadashiMax = 30;
+
+    const int BonusLine = 5;
+    const int AddBonusScore = 2;
+
     private float _limitTime = 0.0f;
 
     private int _correctNum;
     private GameStatus _status;
+    private int _tadashiNum;
+    private int _score;
+    private int _bonusScore;
 }

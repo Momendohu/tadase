@@ -26,11 +26,11 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
         _tadashiList.Clear();
     }
 
-    public void TadashiSetting()
+    public void TadashiSetting(int tadashiNum)
     {
         SetAnswer();
 
-        for (int idx = 0; idx < TadashiMax; idx++)
+        for (int idx = 0; idx < tadashiNum; idx++)
         {
             int uniqueId = 0;
             int pictId = idx == 0 ? answerPictId : notAnswerPictId;
@@ -49,12 +49,15 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
             else
             {
                 entity = _tadashiList[idx];
+                entity.gameObject.SetActive(true);
             }
 
             RandomPos(entity.gameObject);
 
             entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId]);
         }
+
+        DeactiveTadashi(tadashiNum);
 
         Resources.UnloadUnusedAssets();
     }
@@ -85,8 +88,21 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
         obj.transform.localPosition = pos;
     }
 
+    private void DeactiveTadashi(int tadashiNum)
+    {
+        for(int idx = 0; idx < _tadashiList.Count; idx++)
+        {
+            if (tadashiNum > idx)
+                continue;
+
+            if (_tadashiList[idx].gameObject.activeSelf)
+                _tadashiList[idx].gameObject.SetActive(false);
+        }
+    }
+
     const float ScreenHeightMax = 5.0f;
     const float ScreenWidthMax = 8.0f;
+
     const int TadashiMax = 3;
 
     List<TadashiEntity> _tadashiList = new List<TadashiEntity>();
