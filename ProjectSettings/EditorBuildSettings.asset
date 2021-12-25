@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: afd2dc7b659ec4c67aac679cca151c7d
+  - enabled: 1
     path: Assets/naichilab/unity-simple-ranking/Scenes/Ranking.unity
     guid: 152244f5855414ac4a3874f14efa583c
   - enabled: 1

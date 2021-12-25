@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : SingletonMonoBehaviour<UIManager> {
     protected override void Awake () {
@@ -22,14 +23,14 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     }
 
     public void OnPushGameStartButton () {
-        print ("ゲームスタート");
+        SceneManager.LoadScene("InGame");
     }
 
     public void OnPushGameRestartButton () {
-        print ("ゲームリスタート");
+        SceneManager.LoadScene("InGame");
     }
 
     public void OnPushTitleButton () {
-        print ("タイトルにもどる");
+        SceneManager.LoadScene("Title");
     }
 }
