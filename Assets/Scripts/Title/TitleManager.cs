@@ -12,10 +12,10 @@ public class TitleManager : MonoBehaviour {
     }
 
     public void OnPushRankingButton () {
-        UIManager.Instance.OnPushRankingButton();
+        UIManager.Instance.OnPushRankingButton ();
     }
 
     public void OnPushGameStartButton () {
-        UIManager.Instance.OnPushGameStartButton();
+        UIManager.Instance.OnPushGameStartButton ();
     }
 }

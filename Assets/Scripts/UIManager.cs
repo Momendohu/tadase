@@ -16,7 +16,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         var obj = Instantiate (uiResultGroup);
 
         var uiRootList = GameObject.FindGameObjectsWithTag ("UI");
-        var canvasRoot = uiRootList[0].transform; //OPTIMISE:UIタグのCanvasがある前提
+        var canvasRoot = uiRootList[0].transform; //OPTIMIZE:UIタグのCanvasがある前提
         if (!canvasRoot) {
             print ("canvasがうまく参照できてないよ");
             Destroy (obj);
