@@ -19,9 +19,9 @@ public class TadashiEntity : MonoBehaviour
         
     }
 
-    public void Initialzie(int uniqueId, int pictId, bool isAnswer)
+    public void Initialzie(int uniqueId, int pictId, bool isAnswer, Sprite sprite)
     {
-        ChangeImage(pictId);
+        ChangeImage(sprite);
 
         _uniqueId = uniqueId;
         _pictId = pictId;
@@ -44,14 +44,11 @@ public class TadashiEntity : MonoBehaviour
         }
     }
 
-    public void ChangeImage(int pictId)
+    public void ChangeImage(Sprite sprite)
     {
         var renderer = GetComponent<SpriteRenderer>();
-        renderer.sprite = _sprites[pictId];
+        renderer.sprite = sprite;
     }
-
-    [SerializeField]
-    private Sprite[] _sprites;
 
     private int _uniqueId;
     private int _pictId;
