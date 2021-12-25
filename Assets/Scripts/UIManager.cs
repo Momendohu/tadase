@@ -80,4 +80,12 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     public void UpdateScoreUI (string str) {
         scoreUIInstance.GetComponent<ScoreUI> ().UpdateText (str);
     }
+
+    public void DisplayTimeUIAddText (string str) {
+        timeUIInstance.GetComponent<TimeUI> ().DisplayAddText (str);
+    }
+
+    public void DisplayScoreUIAddText (string str) {
+        scoreUIInstance.GetComponent<ScoreUI> ().DisplayAddText (str);
+    }
 }
