@@ -29,11 +29,20 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
                 _limitTime = LimitMaxTime;
                 _correctNum = 0;
                 TadashiManager.Instance.TadashiSetting();
+
+                UIManager.Instance.ShowScoreUI();
+                UIManager.Instance.UpdateScoreUI(_correctNum.ToString());
+
+                UIManager.Instance.ShowTimeUI();
+                UIManager.Instance.UpdateTimeUI(_limitTime.ToString());
+
                 Debug.Log("ÉQÅ[ÉÄäJénèÄîı");
                 _status = GameStatus.InGame;
                 break;
             case GameStatus.InGame:
                 _limitTime -= Time.deltaTime;
+
+                UIManager.Instance.UpdateTimeUI(((int)_limitTime).ToString());
 
                 if (_limitTime < 0)
                     _status = GameStatus.Result;
@@ -49,6 +58,8 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
     public void NextLevel()
     {
         _correctNum++;
+
+        UIManager.Instance.UpdateScoreUI(_correctNum.ToString());
 
         TadashiManager.Instance.TadashiSetting();
     }
