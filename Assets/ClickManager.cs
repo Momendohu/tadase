@@ -22,11 +22,19 @@ public class ClickManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
-            if (collition2d)
+            Collider2D[] collider2ds = Physics2D.OverlapPointAll(tapPoint);
+
+            for (int idx = 0; idx < collider2ds.Length; idx++)
             {
-                var entity = collition2d.transform.gameObject.GetComponent<TadashiEntity>();
-                entity.CheckAnswer();
+                if (collider2ds[idx] != null)
+                {
+                    var entity = collider2ds[idx].transform.gameObject.GetComponent<TadashiEntity>();
+
+                    if (entity.isAnswer || collider2ds.Length == (idx + 1))
+                    {
+                        entity.CheckAnswer();
+                    }
+                }
             }
         }
     }

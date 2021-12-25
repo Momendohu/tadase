@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class TadashiEntity : MonoBehaviour
 {
+    public bool isAnswer { get { return _isAnswer; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,9 @@ public class TadashiEntity : MonoBehaviour
 
     public void CheckAnswer()
     {
+        if (InGameManager.Instance.status == InGameManager.GameStatus.Result)
+            return;
+
         if (_isAnswer)
         {
             InGameManager.Instance.NextLevel();
