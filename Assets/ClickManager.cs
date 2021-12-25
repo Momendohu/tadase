@@ -18,7 +18,6 @@ public class ClickManager : MonoBehaviour
 
     private void ClickGameObject()
     {
-        GameObject result = null;
         // 左クリックされた場所のオブジェクトを取得
         if (Input.GetMouseButtonDown(0))
         {
@@ -26,8 +25,8 @@ public class ClickManager : MonoBehaviour
             Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
             if (collition2d)
             {
-                Debug.Log(collition2d.gameObject.name);
-                result = collition2d.transform.gameObject;
+                var entity = collition2d.transform.gameObject.GetComponent<TadashiEntity>();
+                entity.CheckAnswer();
             }
         }
     }
