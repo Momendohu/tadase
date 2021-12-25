@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGameManager : SingletonMonoBehaviour<InGameManager>
+public class InGameManager : MonoBehaviour
 {
     public enum GameStatus
     {
@@ -14,12 +14,12 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
 
     public GameStatus status { get { return _status; } }
     public int correctNum { get { return _correctNum; } }
+    public TadashiManager tadashiManager;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        _status = GameStatus.InGameReady;
-        _tadashiNum = TadashiMinimum;
+        Initialize();
     }
 
     // Update is called once per frame
@@ -28,9 +28,7 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
         switch (_status)
         {
             case GameStatus.InGameReady:
-                _limitTime = LimitMaxTime;
-                _correctNum = 0;
-                TadashiManager.Instance.TadashiSetting(_tadashiNum);
+                tadashiManager.TadashiSetting(_tadashiNum);
 
                 UIManager.Instance.ShowScoreUI();
                 UIManager.Instance.UpdateScoreUI(_correctNum.ToString());
@@ -61,6 +59,16 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
         }
     }
 
+    public void Initialize()
+    {
+        _status = GameStatus.InGameReady;
+        _tadashiNum = TadashiMinimum;
+        _correctNum = 0;
+        _bonusScore = 0;
+        _score = 0;
+        _limitTime = LimitMaxTime;
+    }
+
     public void UpdateLevel(bool isCorrect)
     {
         if (isCorrect)
@@ -72,7 +80,7 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
             ResetLevel();
         }
 
-        TadashiManager.Instance.TadashiSetting(_tadashiNum);
+        tadashiManager.TadashiSetting(_tadashiNum);
     }
 
     public void NextLevel()
@@ -107,6 +115,13 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
         return result;
     }
 
+    public void CheckAnswer(int uniqueId)
+    {
+        var entity = tadashiManager.GetTadashiEntity(uniqueId);
+
+        UpdateLevel(entity.isAnswer);
+    }
+
     private void ResetLevel()
     {
         _correctNum = 0;
@@ -129,7 +144,7 @@ public class InGameManager : SingletonMonoBehaviour<InGameManager>
         return _bonusScore;
     }
 
-    const float LimitMaxTime = 1.0f;
+    const float LimitMaxTime = 20.0f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 30;
 

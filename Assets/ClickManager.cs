@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour
 {
+    public InGameManager inGameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,7 @@ public class ClickManager : MonoBehaviour
 
                     if (entity.isAnswer || collider2ds.Length == (idx + 1))
                     {
-                        entity.CheckAnswer();
+                        inGameManager.CheckAnswer(entity.uniqueId);
                     }
                 }
             }

@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d117ec31200b8448b9c40af11f0ef09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inGameManager: {fileID: 1319639014}
 --- !u!4 &959725856
 Transform:
   m_ObjectHideFlags: 0
@@ -431,6 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1108a6421b7ed884f98628d045f53a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tadashiManager: {fileID: 1962285083}
 --- !u!1001 &1802544239
 PrefabInstance:
   m_ObjectHideFlags: 0

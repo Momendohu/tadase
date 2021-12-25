@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TadashiEntity : MonoBehaviour
 {
     public bool isAnswer { get { return _isAnswer; } }
+    public int uniqueId { get { return _uniqueId; } }
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +29,8 @@ public class TadashiEntity : MonoBehaviour
         _isAnswer = isAnswer;
     }
 
-    public void CheckAnswer()
+    public bool CheckAnswer()
     {
-        if (InGameManager.Instance.IsPlayebleStatus())
-            return;
-
         bool isCorrect = false;
         if (_isAnswer)
         {
@@ -44,7 +42,7 @@ public class TadashiEntity : MonoBehaviour
             Debug.Log("不正解・・・・");
         }
 
-        InGameManager.Instance.UpdateLevel(isCorrect);
+        return isCorrect;
     }
 
     public void ChangeImage(Sprite sprite)

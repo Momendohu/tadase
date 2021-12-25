@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
+public class TadashiManager : MonoBehaviour
 {
     public int answerPictId;
     public int notAnswerPictId;
@@ -10,9 +10,9 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
     public Sprite[] sprites;
 
     // Start is called before the first frame update
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
+        Initialzie();
     }
 
     // Update is called once per frame
@@ -60,6 +60,19 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
         DeactiveTadashi(tadashiNum);
 
         Resources.UnloadUnusedAssets();
+    }
+
+    public TadashiEntity GetTadashiEntity(int uniqueId)
+    {
+        for(int idx = 0; idx < _tadashiList.Count; idx++)
+        {
+            if(_tadashiList[idx].uniqueId == uniqueId)
+            {
+                return _tadashiList[idx];
+            }
+        }
+
+        return null;
     }
 
     private void SetAnswer()
