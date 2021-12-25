@@ -559,3 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   answerPictId: 0
   notAnswerPictId: 0
+  sprites:
+  - {fileID: 21300000, guid: 48ffb38fc1a7e44c3891095efc83b037, type: 3}
+  - {fileID: 21300000, guid: 1457f4a5fc39342be8d4248149286e9f, type: 3}
+  - {fileID: 21300000, guid: 5105b2eb775f2484f89b95e13542bd83, type: 3}

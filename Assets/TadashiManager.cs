@@ -7,6 +7,8 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
     public int answerPictId;
     public int notAnswerPictId;
 
+    public Sprite[] sprites;
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -51,7 +53,7 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
 
             RandomPos(entity.gameObject);
 
-            entity.Initialzie(uniqueId, pictId, pictId == answerPictId);
+            entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId]);
         }
 
         Resources.UnloadUnusedAssets();
@@ -59,13 +61,13 @@ public class TadashiManager : SingletonMonoBehaviour<TadashiManager>
 
     private void SetAnswer()
     {
-        answerPictId = Random.Range(0, 3);
+        answerPictId = Random.Range(0, sprites.Length);
         Debug.Log("ê≥âID : " + answerPictId);
 
         int pictId = -1;
         while (pictId < 0 || answerPictId == pictId)
         {
-            pictId = Random.Range(0, 3);
+            pictId = Random.Range(0, sprites.Length);
         }
 
         notAnswerPictId = pictId;
