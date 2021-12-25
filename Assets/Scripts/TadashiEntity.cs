@@ -20,7 +20,12 @@ public class TadashiEntity : MonoBehaviour
         
     }
 
-    public void OnClick()
+    public void Initialzie(int uniqueId, int pictId)
+    {
+
+    }
+
+    public void CheckAnswer()
     {
 
     }
@@ -29,4 +34,7 @@ public class TadashiEntity : MonoBehaviour
     {
         
     }
+
+    [SerializeField]
+    private Sprite[] _sprite;
 }

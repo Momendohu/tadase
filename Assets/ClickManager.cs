@@ -13,19 +13,20 @@ public class ClickManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ClickGameObject();
+    }
+
+    private void ClickGameObject()
+    {
+        GameObject result = null;
+        // 左クリックされた場所のオブジェクトを取得
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = new Ray();
-            RaycastHit hit = new RaycastHit();
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //マウスクリックした場所からRayを飛ばし、オブジェクトがあればtrue 
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+            Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D collition2d = Physics2D.OverlapPoint(tapPoint);
+            if (collition2d)
             {
-                if (hit.collider.gameObject.CompareTag("Tadashi"))
-                {
-                    Debug.Log("ADSFASFADSFDSAFDSAFDAFDSAFADSF");
-                }
+                result = collition2d.transform.gameObject;
             }
         }
     }
