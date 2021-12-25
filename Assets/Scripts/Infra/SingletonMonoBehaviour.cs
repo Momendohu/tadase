@@ -19,7 +19,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
 
     protected virtual void Awake () {
         if (this != Instance) {
-            Destroy (this);
+            Destroy (this.gameObject);
             return;
         }
 
