@@ -42,10 +42,15 @@ public class InGameManager : MonoBehaviour
             case GameStatus.InGame:
                 _limitTime -= Time.deltaTime;
 
-                UIManager.Instance.UpdateTimeUI(((int)_limitTime).ToString());
+                if ((int)_limitTime != (int)_beforeLimitTime)
+                {
+                    UIManager.Instance.UpdateTimeUI(((int)_limitTime).ToString());
+                }
 
-                if (_limitTime < 0)
+                if ((int)_limitTime <= 0)
                     _status = GameStatus.ResultDisplay;
+
+                _beforeLimitTime = _limitTime;
                 break;
 
             case GameStatus.ResultDisplay:
@@ -86,9 +91,15 @@ public class InGameManager : MonoBehaviour
     public void NextLevel()
     {
         _correctNum++;
-        _score += CalcScore(_correctNum);
+
+        int addScore = CalcScore(_correctNum);
+        UIManager.Instance.DisplayScoreUIAddText(addScore.ToString());
+        _score += addScore;
 
         UIManager.Instance.UpdateScoreUI(_score.ToString());
+
+        _limitTime += AddTime;
+        UIManager.Instance.DisplayTimeUIAddText(AddTime.ToString());
 
         if (_tadashiNum < TadashiMax)
         {
@@ -144,14 +155,17 @@ public class InGameManager : MonoBehaviour
         return _bonusScore;
     }
 
-    const float LimitMaxTime = 20.0f;
+    const float LimitMaxTime = 20.59f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 30;
 
     const int BonusLine = 5;
     const int AddBonusScore = 2;
 
+    const float AddTime = 5.0f;
+
     private float _limitTime = 0.0f;
+    private float _beforeLimitTime = 0.0f;
     private GameStatus _status;
     private int _tadashiNum;
     private int _correctNum;
