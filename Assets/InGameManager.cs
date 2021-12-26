@@ -157,7 +157,11 @@ public class InGameManager : MonoBehaviour
     private int CalcBonus(int correctNum)
     {
         if (correctNum % BonusLine == 0)
+        {
             _bonusScore += AddBonusScore;
+            UIManager.Instance.ShowTadashiTextUI();
+            UIManager.Instance.DisplayTadashiTextUI("シビれる！憧れるゥ…！", 1);
+        }
 
         return _bonusScore;
     }
