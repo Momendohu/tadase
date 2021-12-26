@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Tadashi
   - UI
+  - Wall
+  - Wall_Top
+  - Wall_Under
+  - Wall_Right
+  - Wall_Left
   layers:
   - Default
   - TransparentFX
