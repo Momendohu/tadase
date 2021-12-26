@@ -31,6 +31,7 @@ public class TadashiManager : MonoBehaviour
         SetAnswer();
 
         float speed = Random.Range(SpeedMinimum, SpeedMax);
+        float rotateSpeed = Random.Range(RotateSpeedMinimux, RotateSpeedMax);
 
         for (int idx = 0; idx < tadashiNum; idx++)
         {
@@ -56,7 +57,7 @@ public class TadashiManager : MonoBehaviour
 
             RandomPos(entity.gameObject);
 
-            entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed);
+            entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed);
         }
 
         DeactiveTadashi(tadashiNum);
@@ -115,11 +116,13 @@ public class TadashiManager : MonoBehaviour
         }
     }
 
-    const float ScreenHeightMax = 5.0f;
-    const float ScreenWidthMax = 8.0f;
+    const float ScreenHeightMax = 4.0f;
+    const float ScreenWidthMax = 7.0f;
 
     const float SpeedMinimum = 0.0f;
     const float SpeedMax = 5.0f;
+    const float RotateSpeedMinimux = 0.0f;
+    const float RotateSpeedMax = 1.0f;
 
     const int TadashiMax = 3;
 

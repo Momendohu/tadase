@@ -17,10 +17,10 @@ public class TadashiEntity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.Rotate(_rotateSpeed);
     }
 
-    public void Initialzie(int uniqueId, int pictId, bool isAnswer, Sprite sprite, float speed)
+    public void Initialzie(int uniqueId, int pictId, bool isAnswer, Sprite sprite, float speed, float rotateSpeed)
     {
         ChangeImage(sprite);
 
@@ -32,6 +32,7 @@ public class TadashiEntity : MonoBehaviour
             rigidBody = this.gameObject.GetComponent<Rigidbody2D>();
 
         _speed = speed;
+        _rotateSpeed = new Vector3(0, 0, rotateSpeed);
 
         rigidBody.velocity = new Vector2(_speed, _speed);
     }
@@ -86,5 +87,6 @@ public class TadashiEntity : MonoBehaviour
     private bool _isAnswer = false;
 
     private Rigidbody2D rigidBody = null;
-    private float _speed = 5f;
+    private float _speed = 0f;
+    private Vector3 _rotateSpeed = Vector3.zero;
 }
