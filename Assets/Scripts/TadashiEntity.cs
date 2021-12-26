@@ -20,7 +20,7 @@ public class TadashiEntity : MonoBehaviour
         transform.Rotate(_rotateSpeed);
     }
 
-    public void Initialzie(int uniqueId, int pictId, bool isAnswer, Sprite sprite, float speed, float rotateSpeed)
+    public void Initialzie(int uniqueId, int pictId, bool isAnswer, Sprite sprite, float speed, float rotateSpeed, TadashiManager.RotateKind rotateKind)
     {
         ChangeImage(sprite);
 
@@ -34,7 +34,22 @@ public class TadashiEntity : MonoBehaviour
             rigidBody = this.gameObject.GetComponent<Rigidbody2D>();
 
         _speed = speed;
-        _rotateSpeed = new Vector3(0, 0, rotateSpeed);
+
+        switch (rotateKind)
+        {
+            case TadashiManager.RotateKind.None:
+                _rotateSpeed = Vector3.zero;
+                break;
+            case TadashiManager.RotateKind.X:
+                _rotateSpeed = new Vector3(rotateSpeed, 0, 0);
+                break;
+            case TadashiManager.RotateKind.Y:
+                _rotateSpeed = new Vector3(0, rotateSpeed, 0);
+                break;
+            case TadashiManager.RotateKind.Z:
+                _rotateSpeed = new Vector3(0, 0, rotateSpeed);
+                break;
+        }
 
         rigidBody.velocity = new Vector2(_speed, _speed);
     }

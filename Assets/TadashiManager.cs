@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TadashiManager : MonoBehaviour
 {
@@ -8,6 +9,14 @@ public class TadashiManager : MonoBehaviour
     public int notAnswerPictId;
 
     public Sprite[] sprites;
+
+    public enum RotateKind
+    {
+        None = -1,
+        X,
+        Y,
+        Z
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -32,15 +41,19 @@ public class TadashiManager : MonoBehaviour
 
         float speed = 0;
         float rotateSpeed = 0;
+        RotateKind rotateKind = RotateKind.None;
 
-        bool isMove = Random.Range(0, MoveProbability) == 0;
-        bool isRotate = Random.Range(0, RotateProbability) == 0;
+        bool isMove = UnityEngine.Random.Range(0, MoveProbability) == 0;
+        bool isRotate = UnityEngine.Random.Range(0, RotateProbability) == 0;
 
         if(isMove)
-            speed = Random.Range(SpeedMinimum, SpeedMax);
+            speed = UnityEngine.Random.Range(SpeedMinimum, SpeedMax);
 
-        if(isRotate)
-            rotateSpeed = Random.Range(RotateSpeedMinimux, RotateSpeedMax);
+        if (isRotate)
+        {
+            rotateSpeed = UnityEngine.Random.Range(RotateSpeedMinimux, RotateSpeedMax);
+            rotateKind = (RotateKind)UnityEngine.Random.Range(0, Enum.GetValues(typeof(RotateKind)).Length);
+        }
 
         for (int idx = 0; idx < tadashiNum; idx++)
         {
@@ -66,7 +79,7 @@ public class TadashiManager : MonoBehaviour
 
             RandomPos(entity.gameObject);
 
-            entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed);
+            entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed, rotateKind);
 
             uniqueId++;
         }
@@ -91,13 +104,13 @@ public class TadashiManager : MonoBehaviour
 
     private void SetAnswer()
     {
-        answerPictId = Random.Range(0, sprites.Length);
+        answerPictId = UnityEngine.Random.Range(0, sprites.Length);
         Debug.Log("³‰ðID : " + answerPictId);
 
         int pictId = -1;
         while (pictId < 0 || answerPictId == pictId)
         {
-            pictId = Random.Range(0, sprites.Length);
+            pictId = UnityEngine.Random.Range(0, sprites.Length);
         }
 
         notAnswerPictId = pictId;
@@ -109,8 +122,8 @@ public class TadashiManager : MonoBehaviour
     {
         Vector2 pos = new Vector2();
 
-        pos.x = Random.Range((ScreenWidthMax * -1), ScreenWidthMax);
-        pos.y = Random.Range((ScreenHeightMax * -1), ScreenHeightMax);
+        pos.x = UnityEngine.Random.Range((ScreenWidthMax * -1), ScreenWidthMax);
+        pos.y = UnityEngine.Random.Range((ScreenHeightMax * -1), ScreenHeightMax);
 
         obj.transform.localPosition = pos;
     }
