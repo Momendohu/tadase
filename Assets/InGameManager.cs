@@ -36,6 +36,8 @@ public class InGameManager : MonoBehaviour
                 UIManager.Instance.ShowTimeUI();
                 UIManager.Instance.UpdateTimeUI(_limitTime.ToString());
 
+                AudioManager.Instance.PlayBGM("Rock’n_ROLA");
+
                 Debug.Log("�Q�[���J�n����");
                 _status = GameStatus.InGame;
                 break;
@@ -162,7 +164,7 @@ public class InGameManager : MonoBehaviour
 
     const float LimitMaxTime = 20.59f;
     const int TadashiMinimum = 3;
-    const int TadashiMax = 30;
+    const int TadashiMax = 100;
 
     const int BonusLine = 5;
     const int AddBonusScore = 2;
