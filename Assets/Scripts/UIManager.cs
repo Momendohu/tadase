@@ -16,11 +16,16 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     [SerializeField]
     private GameObject tadashiTextUI = null;
 
+    [SerializeField]
+    private GameObject countDownTextUI = null;
+
     private GameObject timeUIInstance = null;
 
     private GameObject scoreUIInstance = null;
 
     private GameObject tadashiUIInstance = null;
+
+    private GameObject countDownTextUIInstance = null;
 
     protected override void Awake () {
         base.Awake ();
@@ -40,6 +45,14 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
 
     public void ShowTadashiTextUI () {
         tadashiUIInstance = this.CreateUI (tadashiTextUI);
+    }
+
+    public void ShowCountDownTextUI()
+    {
+        if (countDownTextUIInstance != null)
+            return;
+
+        countDownTextUIInstance = this.CreateUI(countDownTextUI);
     }
 
     private GameObject CreateUI (GameObject prefab) {
@@ -100,6 +113,17 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         scoreUIInstance.GetComponent<ScoreUI> ().UpdateText (str);
     }
 
+    public void UpdateCountDownTextUI(string str)
+    {
+        if (!countDownTextUIInstance)
+        {
+            Debug.Log("カウントダウンテキストが設定されていません。");
+            return;
+        }
+
+        countDownTextUIInstance.GetComponent<CountDownTextUI>().UpdateText(str);
+    }
+
     public void DisplayTimeUIAddText (string str) {
         if (!timeUIInstance) {
             print ("timeUIInstanceがない");
@@ -125,5 +149,10 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         }
 
         tadashiUIInstance.GetComponent<TadashiTextUI> ().Initialize (str, interval);
+    }
+
+    public void SetActiveCountDownTextUI(bool isActive)
+    {
+        countDownTextUIInstance.GetComponent<CountDownTextUI>().SetAtive(isActive);
     }
 }

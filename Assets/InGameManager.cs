@@ -6,6 +6,7 @@ public class InGameManager : MonoBehaviour
 {
     public enum GameStatus
     {
+        StartCountDown,
         InGameReady,
         InGame,
         ResultDisplay,
@@ -27,7 +28,21 @@ public class InGameManager : MonoBehaviour
     {
         switch (_status)
         {
+            case GameStatus.StartCountDown:
+                _countDown -= Time.deltaTime;
+
+                string text = (int)_countDown <= 0 ? "GO" : ((int)_countDown).ToString();
+                UIManager.Instance.UpdateCountDownTextUI(text);
+
+                if(_countDown < 0.0f)
+                {
+                    _status = GameStatus.InGameReady;
+                }
+
+                break;
             case GameStatus.InGameReady:
+                UIManager.Instance.SetActiveCountDownTextUI(false);
+
                 tadashiManager.TadashiSetting(_tadashiNum);
 
                 UIManager.Instance.ShowScoreUI();
@@ -35,8 +50,6 @@ public class InGameManager : MonoBehaviour
 
                 UIManager.Instance.ShowTimeUI();
                 UIManager.Instance.UpdateTimeUI(_limitTime.ToString());
-
-                AudioManager.Instance.PlayBGM("Rock’n_ROLA");
 
                 Debug.Log("�Q�[���J�n����");
                 _status = GameStatus.InGame;
@@ -69,12 +82,16 @@ public class InGameManager : MonoBehaviour
 
     public void Initialize()
     {
-        _status = GameStatus.InGameReady;
+        _status = GameStatus.StartCountDown;
         _tadashiNum = TadashiMinimum;
         _correctNum = 0;
         _bonusScore = 0;
         _score = 0;
         _limitTime = LimitMaxTime;
+        _countDown = CountDownMax;
+
+        UIManager.Instance.ShowCountDownTextUI();
+        //AudioManager.Instance.PlayBGM("Rock’n_ROLA");
     }
 
     public void UpdateLevel(bool isCorrect)
@@ -164,7 +181,7 @@ public class InGameManager : MonoBehaviour
         return _bonusScore;
     }
 
-    const float LimitMaxTime = 20.59f;
+    const float LimitMaxTime = 20.99f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 100;
 
@@ -172,6 +189,7 @@ public class InGameManager : MonoBehaviour
     const int AddBonusScore = 2;
 
     const float AddTime = 5.0f;
+    const float CountDownMax = 3.99f;
 
     private float _limitTime = 0.0f;
     private float _beforeLimitTime = 0.0f;
@@ -180,4 +198,5 @@ public class InGameManager : MonoBehaviour
     private int _correctNum;
     private int _bonusScore;
     private int _score;
+    private float _countDown;
 }
