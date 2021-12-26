@@ -67,6 +67,8 @@ public class TadashiManager : MonoBehaviour
             RandomPos(entity.gameObject);
 
             entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed);
+
+            uniqueId++;
         }
 
         DeactiveTadashi(tadashiNum);

@@ -28,14 +28,17 @@ public class ClickManager : MonoBehaviour
 
             for (int idx = 0; idx < collider2ds.Length; idx++)
             {
-                if (collider2ds[idx] != null)
-                {
-                    var entity = collider2ds[idx].transform.gameObject.GetComponent<TadashiEntity>();
+                if (collider2ds[idx] == null)
+                    continue;
 
-                    if (entity.isAnswer || collider2ds.Length == (idx + 1))
-                    {
-                        inGameManager.CheckAnswer(entity.uniqueId);
-                    }
+                var entity = collider2ds[idx].transform.gameObject.GetComponent<TadashiEntity>();
+
+                if (entity == null)
+                    continue;
+
+                if (entity.isAnswer || collider2ds.Length == (idx + 1))
+                {
+                    inGameManager.CheckAnswer(entity);
                 }
             }
         }

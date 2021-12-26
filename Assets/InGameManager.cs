@@ -133,10 +133,8 @@ public class InGameManager : MonoBehaviour
         return result;
     }
 
-    public void CheckAnswer(int uniqueId)
+    public void CheckAnswer(TadashiEntity entity)
     {
-        var entity = tadashiManager.GetTadashiEntity(uniqueId);
-
         UpdateLevel(entity.isAnswer);
     }
 
