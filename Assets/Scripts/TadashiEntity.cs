@@ -17,16 +17,23 @@ public class TadashiEntity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void Initialzie(int uniqueId, int pictId, bool isAnswer, Sprite sprite)
+    public void Initialzie(int uniqueId, int pictId, bool isAnswer, Sprite sprite, float speed)
     {
         ChangeImage(sprite);
 
         _uniqueId = uniqueId;
         _pictId = pictId;
         _isAnswer = isAnswer;
+
+        if (rigidBody == null)
+            rigidBody = this.gameObject.GetComponent<Rigidbody2D>();
+
+        _speed = speed;
+
+        rigidBody.velocity = new Vector2(_speed, _speed);
     }
 
     public bool CheckAnswer()
@@ -51,8 +58,33 @@ public class TadashiEntity : MonoBehaviour
         renderer.sprite = sprite;
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Vector2 velocity = rigidBody.velocity;
+
+        switch (other.gameObject.tag)
+        {
+            case "Wall_Top":
+            case "Wall_Under":
+                velocity.y *= -1;
+                velocity.x = Random.Range(_speed * -1, _speed);
+                break;
+            case "Wall_Left":
+            case "Wall_Right":
+                velocity.x *= -1;
+                velocity.y = Random.Range(_speed * -1, _speed);
+                break;
+        }
+
+        if (rigidBody.velocity != velocity)
+            rigidBody.velocity = velocity;
+    }
+
     private int _uniqueId;
     private int _pictId;
 
     private bool _isAnswer = false;
+
+    private Rigidbody2D rigidBody = null;
+    private float _speed = 5f;
 }
