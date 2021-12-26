@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TitleManager : MonoBehaviour {
+    void Awake () {
+        Model.Instance.Initialize ();
+    }
+
     void Start () {
         AudioManager.Instance.PlayBGM ("bgm01", true, 0.3f);
     }
