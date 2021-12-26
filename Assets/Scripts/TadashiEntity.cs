@@ -24,6 +24,8 @@ public class TadashiEntity : MonoBehaviour
     {
         ChangeImage(sprite);
 
+        transform.rotation = Quaternion.identity; ;
+
         _uniqueId = uniqueId;
         _pictId = pictId;
         _isAnswer = isAnswer;

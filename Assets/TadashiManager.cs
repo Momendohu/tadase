@@ -30,8 +30,17 @@ public class TadashiManager : MonoBehaviour
     {
         SetAnswer();
 
-        float speed = Random.Range(SpeedMinimum, SpeedMax);
-        float rotateSpeed = Random.Range(RotateSpeedMinimux, RotateSpeedMax);
+        float speed = 0;
+        float rotateSpeed = 0;
+
+        bool isMove = Random.Range(0, MoveProbability) == 0;
+        bool isRotate = Random.Range(0, RotateProbability) == 0;
+
+        if(isMove)
+            speed = Random.Range(SpeedMinimum, SpeedMax);
+
+        if(isRotate)
+            rotateSpeed = Random.Range(RotateSpeedMinimux, RotateSpeedMax);
 
         for (int idx = 0; idx < tadashiNum; idx++)
         {
@@ -123,6 +132,9 @@ public class TadashiManager : MonoBehaviour
     const float SpeedMax = 5.0f;
     const float RotateSpeedMinimux = 0.0f;
     const float RotateSpeedMax = 1.0f;
+
+    const int MoveProbability = 5;
+    const int RotateProbability = 5;
 
     const int TadashiMax = 3;
 
