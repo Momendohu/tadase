@@ -39,6 +39,7 @@ public class ClickManager : MonoBehaviour
                 if (entity.isAnswer || collider2ds.Length == (idx + 1))
                 {
                     inGameManager.CheckAnswer(entity);
+                    return;
                 }
             }
         }
