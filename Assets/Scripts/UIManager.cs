@@ -67,7 +67,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     }
 
     public void OnPushRankingButton () {
-        naichilab.RankingLoader.Instance.SendScoreAndShowRanking (0);
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking (Model.Instance.hiScore);
     }
 
     public void OnPushGameStartButton () {

@@ -36,7 +36,7 @@ public class InGameManager : MonoBehaviour
                 UIManager.Instance.ShowTimeUI();
                 UIManager.Instance.UpdateTimeUI(_limitTime.ToString());
 
-                Debug.Log("ƒQ[ƒ€ŠJŽn€”õ");
+                Debug.Log("ï¿½Qï¿½[ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½");
                 _status = GameStatus.InGame;
                 break;
             case GameStatus.InGame:
@@ -54,8 +54,9 @@ public class InGameManager : MonoBehaviour
                 break;
 
             case GameStatus.ResultDisplay:
-                //Debug.Log("ƒQ[ƒ€I—¹");
+                //Debug.Log("ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ï¿½");
                 UIManager.Instance.ShowResultUIGroup();
+                naichilab.RankingLoader.Instance.SendScoreAndShowRanking (Model.Instance.hiScore);
                 _status = GameStatus.ResultReady;
                 break;
 
@@ -95,6 +96,10 @@ public class InGameManager : MonoBehaviour
         int addScore = CalcScore(_correctNum);
         UIManager.Instance.DisplayScoreUIAddText(addScore.ToString());
         _score += addScore;
+
+        if(_score > Model.Instance.hiScore){
+            Model.Instance.hiScore = _score;
+        }
 
         UIManager.Instance.UpdateScoreUI(_score.ToString());
 
