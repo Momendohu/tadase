@@ -8,7 +8,7 @@ public class TitleManager : MonoBehaviour {
     }
 
     void Start () {
-        AudioManager.Instance.PlayBGM ("bgm01", true, 0.3f);
+        AudioManager.Instance.PlayBGM ("title", true, 0.3f);
     }
 
     void Update () {
@@ -16,12 +16,12 @@ public class TitleManager : MonoBehaviour {
     }
 
     public void OnPushRankingButton () {
-        AudioManager.Instance.PlaySE ("button01");
+        AudioManager.Instance.PlaySE ("ohyear");
         UIManager.Instance.OnPushRankingButton ();
     }
 
     public void OnPushGameStartButton () {
-        AudioManager.Instance.PlaySE ("button01");
+        AudioManager.Instance.PlaySE ("ohyear");
         UIManager.Instance.OnPushGameStartButton ();
     }
 }
