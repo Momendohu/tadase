@@ -22,6 +22,8 @@ public class TitleManager : MonoBehaviour {
 
     public void OnPushGameStartButton () {
         AudioManager.Instance.PlaySE ("ohyear");
-        UIManager.Instance.OnPushGameStartButton ();
+        UIManager.Instance.ShowTransitionBackground ();
+        AudioManager.Instance.FadeOutBGM ("title");
+        UIManager.Instance.TransitionIn (() => UIManager.Instance.OnPushGameStartButton ());
     }
 }

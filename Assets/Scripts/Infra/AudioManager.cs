@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [DefaultExecutionOrder (-100)]
@@ -68,5 +69,26 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager> {
         float[] spectrum = new float[numSumples];
         BGMSource[name].GetSpectrumData (spectrum, 0, FFTWindow.BlackmanHarris);
         return spectrum;
+    }
+
+    /// <summary>
+    /// bgmをフェードアウトする
+    /// </summary>
+    public async void FadeOutBGM (string name) {
+        if (!BGMSource.ContainsKey (name)) return;
+        if (!BGMSource[name].isPlaying) return;
+
+        var volume = BGMSource[name].volume;
+        while (true) {
+            volume -= 0.01f;
+            BGMSource[name].volume = volume;
+            if (volume <= 0) {
+                break;
+            }
+
+            await Task.Delay (10);
+        }
+
+        StopBGM (name);
     }
 }
