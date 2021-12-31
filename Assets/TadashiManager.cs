@@ -17,14 +17,14 @@ public class TadashiManager : MonoBehaviour {
     }
 
     void Awake () {
-        Initialzie ();
+        Initialize ();
     }
 
     void Update () {
 
     }
 
-    public void Initialzie () {
+    public void Initialize () {
         _tadashiList.Clear ();
     }
 
@@ -53,7 +53,6 @@ public class TadashiManager : MonoBehaviour {
             TadashiEntity entity;
 
             if ((_tadashiList.Count - 1) < idx) {
-
                 GameObject tadashi = (GameObject) Instantiate (obj, Vector2.zero, Quaternion.identity);
                 entity = tadashi.GetComponent<TadashiEntity> ();
                 _tadashiList.Add (entity);

@@ -98,7 +98,7 @@ public class InGameManager : MonoBehaviour {
             NextLevel ();
         } else {
             //TODO:演出を入れる
-            ResetLevel ();
+            //TODO:失敗時処理
         }
 
         tadashiManager.TadashiSetting (_tadashiNum);
@@ -106,10 +106,8 @@ public class InGameManager : MonoBehaviour {
 
     public void NextLevel () {
         _correctNum++;
-        _limitTime += AddTime;
 
         CheckBonus (_correctNum);
-        UIManager.Instance.DisplayTimeUIAddText (AddTime.ToString ());
 
         if (_tadashiNum < TadashiMax) {
             _tadashiNum++;
@@ -137,30 +135,28 @@ public class InGameManager : MonoBehaviour {
         UpdateLevel (entity.isAnswer);
     }
 
-    private void ResetLevel () {
-        _correctNum = 0;
-        _tadashiNum = TadashiMinimum;
-    }
-
     private void CheckBonus (int correctNum) {
         if (correctNum % BonusLine == 0) {
             UIManager.Instance.ShowTadashiTextUI ();
             UIManager.Instance.DisplayTadashiTextUI (
-                string.Format ("{0}コンボ！やるじゃん", correctNum),
+                string.Format ("{0}ただし!やるじゃん", correctNum),
                 1);
 
             UIManager.Instance.ShowExtendedTimeUI ();
             UIManager.Instance.InitializeExtendedTimeUI ();
+
+            _limitTime += AddTime;
+            UIManager.Instance.DisplayTimeUIAddText (AddTime.ToString ());
         }
     }
 
-    const float LimitMaxTime = 20.99f;
+    const float LimitMaxTime = 2.99f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 100;
 
     const int BonusLine = 5;
 
-    const float AddTime = 1.0f;
+    const float AddTime = 10f;
 
     private float _limitTime = 0.0f;
     private float _beforeLimitTime = 0.0f;
