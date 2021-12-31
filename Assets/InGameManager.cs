@@ -68,6 +68,7 @@ public class InGameManager : MonoBehaviour {
                 _status = GameStatus.ResultReady;
                 Model.Instance.hiScore = this._correctNum;
 
+                AudioManager.Instance.PlaySE ("exp1", 0.5f);
                 AudioManager.Instance.FadeOutBGM ("game", 0, 0.001f);
                 AudioManager.Instance.PlayBGM ("result", true, 0.5f);
 
@@ -163,6 +164,7 @@ public class InGameManager : MonoBehaviour {
 
     private void CheckBonus (int correctNum) {
         if (correctNum % BonusLine == 0) {
+            AudioManager.Instance.PlaySE ("year1", 0.5f);
             UIManager.Instance.DisplayTadashiTextUI (
                 string.Format ("{0}ただし!やるじゃん", correctNum),
                 2);
@@ -175,7 +177,7 @@ public class InGameManager : MonoBehaviour {
         }
     }
 
-    const float LimitMaxTime = 2.99f;
+    const float LimitMaxTime = 20.99f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 100;
 
