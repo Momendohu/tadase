@@ -1,100 +1,84 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public class TadashiManager : MonoBehaviour
-{
+public class TadashiManager : MonoBehaviour {
     public int answerPictId;
     public int notAnswerPictId;
 
     public Sprite[] sprites;
 
-    public enum RotateKind
-    {
+    public enum RotateKind {
         None = -1,
         X,
         Y,
         Z
     }
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Initialzie();
+    void Awake () {
+        Initialzie ();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update () {
 
     }
 
-    public void Initialzie()
-    {
-        _tadashiList.Clear();
+    public void Initialzie () {
+        _tadashiList.Clear ();
     }
 
-    public void TadashiSetting(int tadashiNum)
-    {
-        SetAnswer();
+    public void TadashiSetting (int tadashiNum) {
+        SetAnswer ();
 
         float speed = 0;
         float rotateSpeed = 0;
         RotateKind rotateKind = RotateKind.None;
 
-        bool isMove = UnityEngine.Random.Range(0, MoveProbability) == 0;
-        bool isRotate = UnityEngine.Random.Range(0, RotateProbability) == 0;
+        bool isMove = UnityEngine.Random.Range (0, MoveProbability) == 0;
+        bool isRotate = UnityEngine.Random.Range (0, RotateProbability) == 0;
 
-        if(isMove)
-            speed = UnityEngine.Random.Range(SpeedMinimum, SpeedMax);
+        if (isMove)
+            speed = UnityEngine.Random.Range (SpeedMinimum, SpeedMax);
 
-        if (isRotate)
-        {
-            rotateSpeed = UnityEngine.Random.Range(RotateSpeedMinimux, RotateSpeedMax);
-            rotateKind = (RotateKind)UnityEngine.Random.Range(0, Enum.GetValues(typeof(RotateKind)).Length);
+        if (isRotate) {
+            rotateSpeed = UnityEngine.Random.Range (RotateSpeedMinimux, RotateSpeedMax);
+            rotateKind = (RotateKind) UnityEngine.Random.Range (0, Enum.GetValues (typeof (RotateKind)).Length);
         }
 
-        for (int idx = 0; idx < tadashiNum; idx++)
-        {
+        for (int idx = 0; idx < tadashiNum; idx++) {
             int uniqueId = 0;
             int pictId = idx == 0 ? answerPictId : notAnswerPictId;
 
             TadashiEntity entity;
 
-            if ((_tadashiList.Count - 1) < idx)
-            {
-                GameObject obj = (GameObject)Resources.Load("Prefabs/Tadashi");
+            if ((_tadashiList.Count - 1) < idx) {
+                GameObject obj = (GameObject) Resources.Load ("Prefabs/Tadashi");
 
-                GameObject tadashi = (GameObject)Instantiate(obj, Vector2.zero, Quaternion.identity);
-                entity = tadashi.GetComponent<TadashiEntity>();
-                _tadashiList.Add(entity);
-                Debug.Log(idx);
-            }
-            else
-            {
+                GameObject tadashi = (GameObject) Instantiate (obj, Vector2.zero, Quaternion.identity);
+                entity = tadashi.GetComponent<TadashiEntity> ();
+                _tadashiList.Add (entity);
+                Debug.Log (idx);
+            } else {
                 entity = _tadashiList[idx];
-                entity.gameObject.SetActive(true);
+                entity.gameObject.SetActive (true);
             }
 
-            RandomPos(entity.gameObject);
+            RandomPos (entity.gameObject);
 
-            entity.Initialzie(uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed, rotateKind);
+            entity.Initialzie (uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed, rotateKind);
 
             uniqueId++;
         }
 
-        DeactiveTadashi(tadashiNum);
+        DeactiveTadashi (tadashiNum);
 
-        Resources.UnloadUnusedAssets();
+        Resources.UnloadUnusedAssets ();
     }
 
-    public TadashiEntity GetTadashiEntity(int uniqueId)
-    {
-        for(int idx = 0; idx < _tadashiList.Count; idx++)
-        {
-            if(_tadashiList[idx].uniqueId == uniqueId)
-            {
+    public TadashiEntity GetTadashiEntity (int uniqueId) {
+        for (int idx = 0; idx < _tadashiList.Count; idx++) {
+            if (_tadashiList[idx].uniqueId == uniqueId) {
                 return _tadashiList[idx];
             }
         }
@@ -102,41 +86,36 @@ public class TadashiManager : MonoBehaviour
         return null;
     }
 
-    private void SetAnswer()
-    {
-        answerPictId = UnityEngine.Random.Range(0, sprites.Length);
-        Debug.Log("こたえID : " + answerPictId);
+    private void SetAnswer () {
+        answerPictId = UnityEngine.Random.Range (0, sprites.Length);
+        Debug.Log ("こたえID : " + answerPictId);
 
         int pictId = -1;
-        while (pictId < 0 || answerPictId == pictId)
-        {
-            pictId = UnityEngine.Random.Range(0, sprites.Length);
+        while (pictId < 0 || answerPictId == pictId) {
+            pictId = UnityEngine.Random.Range (0, sprites.Length);
         }
 
         notAnswerPictId = pictId;
-        Debug.Log("こたえじゃないID : " + notAnswerPictId);
+        Debug.Log ("こたえじゃないID : " + notAnswerPictId);
 
     }
 
-    private void RandomPos(GameObject obj)
-    {
-        Vector2 pos = new Vector2();
+    private void RandomPos (GameObject obj) {
+        Vector2 pos = new Vector2 ();
 
-        pos.x = UnityEngine.Random.Range((ScreenWidthMax * -1), ScreenWidthMax);
-        pos.y = UnityEngine.Random.Range((ScreenHeightMax * -1), ScreenHeightMax);
+        pos.x = UnityEngine.Random.Range ((ScreenWidthMax * -1), ScreenWidthMax);
+        pos.y = UnityEngine.Random.Range ((ScreenHeightMax * -1), ScreenHeightMax);
 
         obj.transform.localPosition = pos;
     }
 
-    private void DeactiveTadashi(int tadashiNum)
-    {
-        for(int idx = 0; idx < _tadashiList.Count; idx++)
-        {
+    private void DeactiveTadashi (int tadashiNum) {
+        for (int idx = 0; idx < _tadashiList.Count; idx++) {
             if (tadashiNum > idx)
                 continue;
 
             if (_tadashiList[idx].gameObject.activeSelf)
-                _tadashiList[idx].gameObject.SetActive(false);
+                _tadashiList[idx].gameObject.SetActive (false);
         }
     }
 
@@ -153,5 +132,5 @@ public class TadashiManager : MonoBehaviour
 
     const int TadashiMax = 3;
 
-    List<TadashiEntity> _tadashiList = new List<TadashiEntity>();
+    List<TadashiEntity> _tadashiList = new List<TadashiEntity> ();
 }
