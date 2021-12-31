@@ -74,21 +74,46 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager> {
     /// <summary>
     /// bgmをフェードアウトする
     /// </summary>
-    public async void FadeOutBGM (string name) {
+    public async void FadeOutBGM (string name, float targetVolume = 0, float updateSpeed = 0.01f) {
         if (!BGMSource.ContainsKey (name)) return;
         if (!BGMSource[name].isPlaying) return;
 
         var volume = BGMSource[name].volume;
         while (true) {
-            volume -= 0.01f;
+            volume -= updateSpeed;
             BGMSource[name].volume = volume;
-            if (volume <= 0) {
+            if (volume <= targetVolume) {
+                BGMSource[name].volume = targetVolume;
                 break;
             }
 
-            await Task.Delay (10);
+            //OPTIMIZE:更新速度仮置き
+            await Task.Delay (1);
         }
 
         StopBGM (name);
+    }
+
+    /// <summary>
+    /// bgmをフェードインする
+    /// </summary>
+    public async void FadeInBGM (string name, float targetVolume = 1, float updateSpeed = 0.01f, bool isLoop = true) {
+        if (!BGMSource.ContainsKey (name)) return;
+        if (!BGMSource[name].isPlaying) return;
+
+        PlayBGM (name, isLoop, 0);
+
+        var volume = BGMSource[name].volume;
+        while (true) {
+            volume += updateSpeed;
+            BGMSource[name].volume = volume;
+            if (volume >= targetVolume) {
+                BGMSource[name].volume = targetVolume;
+                break;
+            }
+
+            //OPTIMIZE:更新速度仮置き
+            await Task.Delay (1);
+        }
     }
 }

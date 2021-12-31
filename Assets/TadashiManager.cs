@@ -69,7 +69,7 @@ public class TadashiManager : MonoBehaviour
                 GameObject tadashi = (GameObject)Instantiate(obj, Vector2.zero, Quaternion.identity);
                 entity = tadashi.GetComponent<TadashiEntity>();
                 _tadashiList.Add(entity);
-                Debug.Log("ìoò^ÅIÅI : " + idx);
+                Debug.Log(idx);
             }
             else
             {
@@ -105,7 +105,7 @@ public class TadashiManager : MonoBehaviour
     private void SetAnswer()
     {
         answerPictId = UnityEngine.Random.Range(0, sprites.Length);
-        Debug.Log("ê≥âID : " + answerPictId);
+        Debug.Log("„Åì„Åü„ÅàID : " + answerPictId);
 
         int pictId = -1;
         while (pictId < 0 || answerPictId == pictId)
@@ -114,7 +114,7 @@ public class TadashiManager : MonoBehaviour
         }
 
         notAnswerPictId = pictId;
-        Debug.Log("ïsê≥âID : " + notAnswerPictId);
+        Debug.Log("„Åì„Åü„Åà„Åò„ÇÉ„Å™„ÅÑID : " + notAnswerPictId);
 
     }
 

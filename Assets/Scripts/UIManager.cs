@@ -120,15 +120,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         scoreUIInstance.GetComponent<ScoreUI> ().UpdateText (str);
     }
 
-    public void UpdateCountDownTextUI (string str) {
-        if (!countDownTextUIInstance) {
-            Debug.Log ("カウントダウンテキストが設定されていません。");
-            return;
-        }
-
-        countDownTextUIInstance.GetComponent<CountDownTextUI> ().UpdateText (str);
-    }
-
     public void DisplayTimeUIAddText (string str) {
         if (!timeUIInstance) {
             print ("timeUIInstanceがない");
@@ -183,7 +174,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         tadashiUIInstance.GetComponent<TadashiTextUI> ().Initialize (str, interval);
     }
 
-    public void SetActiveCountDownTextUI (bool isActive) {
-        countDownTextUIInstance.GetComponent<CountDownTextUI> ().SetAtive (isActive);
+    public void InitializeCountDownTextUI (int countDownNum, Action onComplete) {
+        countDownTextUIInstance.GetComponent<CountDownTextUI> ().Initialize (countDownNum, onComplete);
     }
 }

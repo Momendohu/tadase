@@ -28,19 +28,15 @@ public class InGameManager : MonoBehaviour {
                 break;
 
             case GameStatus.StartCountDown:
-                _countDown -= Time.deltaTime;
-
-                string text = (int) _countDown <= 0 ? "GO" : ((int) _countDown).ToString ();
-                UIManager.Instance.UpdateCountDownTextUI (text);
-
-                if (_countDown < 0.0f) {
-                    _status = GameStatus.InGameReady;
-                }
+                //OPTIMIZE:毎フレーム呼んでる(現状UIの中でリターンして回避)
+                UIManager.Instance.InitializeCountDownTextUI (
+                    3,
+                    () => { _status = GameStatus.InGameReady; }
+                );
 
                 break;
-            case GameStatus.InGameReady:
-                UIManager.Instance.SetActiveCountDownTextUI (false);
 
+            case GameStatus.InGameReady:
                 tadashiManager.TadashiSetting (_tadashiNum);
 
                 UIManager.Instance.ShowScoreUI ();
@@ -49,9 +45,9 @@ public class InGameManager : MonoBehaviour {
                 UIManager.Instance.ShowTimeUI ();
                 UIManager.Instance.UpdateTimeUI (_limitTime.ToString ());
 
-                Debug.Log ("�Q�[���J�n����");
                 _status = GameStatus.InGame;
                 break;
+
             case GameStatus.InGame:
                 _limitTime -= Time.deltaTime;
 
@@ -88,7 +84,6 @@ public class InGameManager : MonoBehaviour {
         _bonusScore = 0;
         _score = 0;
         _limitTime = LimitMaxTime;
-        _countDown = CountDownMax;
 
         UIManager.Instance.ShowCountDownTextUI ();
         UIManager.Instance.ShowTransitionBackground ();
@@ -180,7 +175,6 @@ public class InGameManager : MonoBehaviour {
     const int AddBonusScore = 2;
 
     const float AddTime = 5.0f;
-    const float CountDownMax = 3.99f;
 
     private float _limitTime = 0.0f;
     private float _beforeLimitTime = 0.0f;
@@ -189,5 +183,4 @@ public class InGameManager : MonoBehaviour {
     private int _correctNum;
     private int _bonusScore;
     private int _score;
-    private float _countDown;
 }
