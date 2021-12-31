@@ -56,6 +56,9 @@ public class InGameManager : MonoBehaviour {
 
                 if ((int) _limitTime != (int) _beforeLimitTime) {
                     UIManager.Instance.UpdateTimeUI (((int) _limitTime).ToString ());
+                    if (1 <= (int) _limitTime && (int) _limitTime <= 3) {
+                        AudioManager.Instance.PlaySE ("endcount", 0.5f);
+                    }
                 }
 
                 if ((int) _limitTime <= 0)
@@ -120,6 +123,7 @@ public class InGameManager : MonoBehaviour {
 
     public void NextLevel () {
         _correctNum++;
+        AudioManager.Instance.PlaySE ("correct", 0.5f);
 
         CheckBonus (_correctNum);
 
@@ -130,14 +134,13 @@ public class InGameManager : MonoBehaviour {
 
     private async void Incorrect () {
         canClick = false;
-        for (int i = 0; i < 10; i++) {
-            UIManager.Instance.DisplayTadashiTextUI (
-                "間違ってて草wwwwwww",
-                2, -180 + 60 * i, -320 + (i % 2 == 0 ? 1 : 0) * 80
-            );
-        }
+        AudioManager.Instance.PlaySE ("wrong", 0.5f);
+        UIManager.Instance.DisplayTadashiTextUI (
+            "間違ってて草wwwwwww",
+            1.5f
+        );
 
-        await Task.Delay (2000);
+        await Task.Delay (1500);
         canClick = true;
     }
 
