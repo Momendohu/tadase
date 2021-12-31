@@ -95,8 +95,10 @@ public class InGameManager : MonoBehaviour {
 
     public void UpdateLevel (bool isCorrect) {
         if (isCorrect) {
+            //TODO:演出を入れる
             NextLevel ();
         } else {
+            //TODO:演出を入れる
             ResetLevel ();
         }
 
@@ -161,7 +163,9 @@ public class InGameManager : MonoBehaviour {
         if (correctNum % BonusLine == 0) {
             _bonusScore += AddBonusScore;
             UIManager.Instance.ShowTadashiTextUI ();
-            UIManager.Instance.DisplayTadashiTextUI ("シビれる！憧れるゥ…！", 1);
+            UIManager.Instance.DisplayTadashiTextUI (
+                string.Format ("{0}コンボ！やるじゃん", correctNum),
+                1);
         }
 
         return _bonusScore;
@@ -174,7 +178,7 @@ public class InGameManager : MonoBehaviour {
     const int BonusLine = 5;
     const int AddBonusScore = 2;
 
-    const float AddTime = 5.0f;
+    const float AddTime = 1.0f;
 
     private float _limitTime = 0.0f;
     private float _beforeLimitTime = 0.0f;

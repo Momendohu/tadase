@@ -2,43 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickManager : MonoBehaviour
-{
+public class ClickManager : MonoBehaviour {
     public InGameManager inGameManager;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start () {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        ClickGameObject();
+    void Update () {
+        ClickGameObject ();
     }
 
-    private void ClickGameObject()
-    {
-        // ¶ƒNƒŠƒbƒN‚³‚ê‚½êŠ‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 tapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D[] collider2ds = Physics2D.OverlapPointAll(tapPoint);
+    private void ClickGameObject () {
+        // ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ê‚½ï¿½êŠï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½æ“¾
+        if (Input.GetMouseButtonDown (0)) {
+            Vector2 tapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+            Collider2D[] collider2ds = Physics2D.OverlapPointAll (tapPoint);
 
-            for (int idx = 0; idx < collider2ds.Length; idx++)
-            {
+            for (int idx = 0; idx < collider2ds.Length; idx++) {
                 if (collider2ds[idx] == null)
                     continue;
 
-                var entity = collider2ds[idx].transform.gameObject.GetComponent<TadashiEntity>();
+                var entity = collider2ds[idx].transform.gameObject.GetComponent<TadashiEntity> ();
 
                 if (entity == null)
                     continue;
 
-                if (entity.isAnswer || collider2ds.Length == (idx + 1))
-                {
-                    inGameManager.CheckAnswer(entity);
+                if (entity.isAnswer || collider2ds.Length == (idx + 1)) {
+                    inGameManager.CheckAnswer (entity);
                     return;
                 }
             }

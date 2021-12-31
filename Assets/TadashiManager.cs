@@ -38,14 +38,14 @@ public class TadashiManager : MonoBehaviour {
         bool isMove = UnityEngine.Random.Range (0, MoveProbability) == 0;
         bool isRotate = UnityEngine.Random.Range (0, RotateProbability) == 0;
 
-        if (isMove)
-            speed = UnityEngine.Random.Range (SpeedMinimum, SpeedMax);
+        if (isMove) speed = UnityEngine.Random.Range (SpeedMinimum, SpeedMax);
 
         if (isRotate) {
             rotateSpeed = UnityEngine.Random.Range (RotateSpeedMinimux, RotateSpeedMax);
             rotateKind = (RotateKind) UnityEngine.Random.Range (0, Enum.GetValues (typeof (RotateKind)).Length);
         }
 
+        GameObject obj = (GameObject) Resources.Load ("Prefabs/Tadashi");
         for (int idx = 0; idx < tadashiNum; idx++) {
             int uniqueId = 0;
             int pictId = idx == 0 ? answerPictId : notAnswerPictId;
@@ -53,12 +53,10 @@ public class TadashiManager : MonoBehaviour {
             TadashiEntity entity;
 
             if ((_tadashiList.Count - 1) < idx) {
-                GameObject obj = (GameObject) Resources.Load ("Prefabs/Tadashi");
 
                 GameObject tadashi = (GameObject) Instantiate (obj, Vector2.zero, Quaternion.identity);
                 entity = tadashi.GetComponent<TadashiEntity> ();
                 _tadashiList.Add (entity);
-                Debug.Log (idx);
             } else {
                 entity = _tadashiList[idx];
                 entity.gameObject.SetActive (true);
@@ -88,7 +86,6 @@ public class TadashiManager : MonoBehaviour {
 
     private void SetAnswer () {
         answerPictId = UnityEngine.Random.Range (0, sprites.Length);
-        Debug.Log ("こたえID : " + answerPictId);
 
         int pictId = -1;
         while (pictId < 0 || answerPictId == pictId) {
@@ -96,8 +93,6 @@ public class TadashiManager : MonoBehaviour {
         }
 
         notAnswerPictId = pictId;
-        Debug.Log ("こたえじゃないID : " + notAnswerPictId);
-
     }
 
     private void RandomPos (GameObject obj) {
@@ -111,11 +106,9 @@ public class TadashiManager : MonoBehaviour {
 
     private void DeactiveTadashi (int tadashiNum) {
         for (int idx = 0; idx < _tadashiList.Count; idx++) {
-            if (tadashiNum > idx)
-                continue;
+            if (tadashiNum > idx) continue;
 
-            if (_tadashiList[idx].gameObject.activeSelf)
-                _tadashiList[idx].gameObject.SetActive (false);
+            if (_tadashiList[idx].gameObject.activeSelf) _tadashiList[idx].gameObject.SetActive (false);
         }
     }
 

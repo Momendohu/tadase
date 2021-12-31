@@ -1,7 +1,7 @@
 // Renders a two colored checkerboard pattern using the existing UV coordinates. 
 Shader "Game/Unlit/Checkerboard" {
     Properties {
-        _Color0("Color 0", Color) = (1.0, 1.0, 1.0, 1.0)
+        _Color0("Color 0", Color) = (0.5, 0.5, 0.5, 0.5)
         _Color1("Color 1", Color) = (0.0, 0.0, 0.0, 1.0)
         _Size("Density", Range(2, 50)) = 8
     }
