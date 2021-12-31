@@ -84,14 +84,15 @@ public class TadashiManager : MonoBehaviour {
     }
 
     private void SetAnswer () {
-        answerPictId = UnityEngine.Random.Range (0, sprites.Length);
+        answerPictId = UnityEngine.Random.Range (1, sprites.Length);
 
-        int pictId = -1;
+        /*int pictId = -1;
         while (pictId < 0 || answerPictId == pictId) {
             pictId = UnityEngine.Random.Range (0, sprites.Length);
         }
 
-        notAnswerPictId = pictId;
+        notAnswerPictId = pictId;*/
+        notAnswerPictId = 0;
     }
 
     private void RandomPos (GameObject obj) {
