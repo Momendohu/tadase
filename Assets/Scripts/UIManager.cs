@@ -23,6 +23,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     [SerializeField]
     private GameObject transitionBackground = null;
 
+    [SerializeField]
+    private GameObject gameEndUI = null;
+
     private GameObject timeUIInstance = null;
 
     private GameObject scoreUIInstance = null;
@@ -32,6 +35,8 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     private GameObject countDownTextUIInstance = null;
 
     private GameObject transitionBackgroundInstance = null;
+
+    private GameObject gameEndUIInstance = null;
 
     protected override void Awake () {
         base.Awake ();
@@ -60,6 +65,10 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     public void ShowCountDownTextUI () {
         if (countDownTextUIInstance != null) return;
         countDownTextUIInstance = this.CreateUI (countDownTextUI);
+    }
+
+    public void ShowGameEndUI () {
+        gameEndUIInstance = this.CreateUI (gameEndUI);
     }
 
     private GameObject CreateUI (GameObject prefab) {
@@ -176,5 +185,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
 
     public void InitializeCountDownTextUI (int countDownNum, Action onComplete) {
         countDownTextUIInstance.GetComponent<CountDownTextUI> ().Initialize (countDownNum, onComplete);
+    }
+
+    public void InitializeGameEndUI (Action onComplete) {
+        gameEndUIInstance.GetComponent<GameEndUI> ().Initialize (onComplete);
     }
 }

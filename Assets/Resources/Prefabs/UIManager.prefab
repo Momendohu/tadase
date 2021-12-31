@@ -49,3 +49,4 @@ MonoBehaviour:
   tadashiTextUI: {fileID: 5583086914535292803, guid: eb7dd5add740a4a3aaddf2f4db1ac6c6, type: 3}
   countDownTextUI: {fileID: 1191354063202542287, guid: d7d5dde7d5eda294190a88f4ca1d8928, type: 3}
   transitionBackground: {fileID: 8867443410404667549, guid: 4e4b02f0f057c4252a74dea542d53e3b, type: 3}
+  gameEndUI: {fileID: 2507499641491080187, guid: ba9620189fb0f4860ab16dbb467397a5, type: 3}

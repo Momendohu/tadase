@@ -62,9 +62,13 @@ public class InGameManager : MonoBehaviour {
                 break;
 
             case GameStatus.ResultDisplay:
-                //Debug.Log("�Q�[���I��");
-                UIManager.Instance.ShowResultUIGroup ();
-                naichilab.RankingLoader.Instance.SendScoreAndShowRanking (Model.Instance.hiScore);
+                UIManager.Instance.ShowGameEndUI ();
+                UIManager.Instance.InitializeGameEndUI (
+                    () => {
+                        UIManager.Instance.ShowResultUIGroup ();
+                        naichilab.RankingLoader.Instance.SendScoreAndShowRanking (Model.Instance.hiScore);
+                    }
+                );
                 _status = GameStatus.ResultReady;
                 break;
 
@@ -171,7 +175,7 @@ public class InGameManager : MonoBehaviour {
         return _bonusScore;
     }
 
-    const float LimitMaxTime = 20.99f;
+    const float LimitMaxTime = 2.99f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 100;
 
