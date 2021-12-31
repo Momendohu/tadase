@@ -10,7 +10,7 @@ public class ResultUIGroup : MonoBehaviour {
 
     public void OnPushGameRestartButton () {
         AudioManager.Instance.PlaySE ("button01");
-        UIManager.Instance.OnPushGameRestartButton ();
+        UIManager.Instance.TransitionIn (() => UIManager.Instance.OnPushGameRestartButton ());
     }
 
     public void OnPushGameTitleButton () {
