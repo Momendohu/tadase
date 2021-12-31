@@ -68,6 +68,9 @@ public class InGameManager : MonoBehaviour {
                 _status = GameStatus.ResultReady;
                 Model.Instance.hiScore = this._correctNum;
 
+                AudioManager.Instance.FadeOutBGM ("game", 0, 0.001f);
+                AudioManager.Instance.PlayBGM ("result", true, 0.5f);
+
                 UIManager.Instance.ShowGameEndUI ();
                 UIManager.Instance.InitializeGameEndUI (
                     () => {
@@ -78,7 +81,7 @@ public class InGameManager : MonoBehaviour {
                 break;
 
             case GameStatus.ResultReady:
-            _canClick = false; //OPTIMIZE:常にクリック不可更新して他のフラグを潰してる
+                _canClick = false; //OPTIMIZE:常にクリック不可更新して他のフラグを潰してる
                 break;
         }
     }
