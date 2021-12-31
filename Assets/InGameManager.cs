@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class InGameManager : MonoBehaviour {
@@ -14,6 +15,11 @@ public class InGameManager : MonoBehaviour {
 
     public GameStatus status { get { return _status; } }
     public int correctNum { get { return _correctNum; } }
+    public bool canClick {
+        get => _canClick;
+        set => _canClick = value;
+    }
+
     public TadashiManager tadashiManager;
 
     // Start is called before the first frame update
@@ -59,6 +65,9 @@ public class InGameManager : MonoBehaviour {
                 break;
 
             case GameStatus.ResultDisplay:
+                _status = GameStatus.ResultReady;
+                Model.Instance.hiScore = this._correctNum;
+
                 UIManager.Instance.ShowGameEndUI ();
                 UIManager.Instance.InitializeGameEndUI (
                     () => {
@@ -66,10 +75,10 @@ public class InGameManager : MonoBehaviour {
                         naichilab.RankingLoader.Instance.SendScoreAndShowRanking (Model.Instance.hiScore);
                     }
                 );
-                _status = GameStatus.ResultReady;
                 break;
 
             case GameStatus.ResultReady:
+            _canClick = false; //OPTIMIZE:常にクリック不可更新して他のフラグを潰してる
                 break;
         }
     }
@@ -83,13 +92,14 @@ public class InGameManager : MonoBehaviour {
         _tadashiNum = TadashiMinimum;
         _correctNum = 0;
         _limitTime = LimitMaxTime;
+        _canClick = true;
 
         UIManager.Instance.ShowCountDownTextUI ();
         UIManager.Instance.ShowTransitionBackground ();
         UIManager.Instance.DisplayTransitionBackground ();
         UIManager.Instance.TransitionOut (() => StartGame (), 500);
 
-        AudioManager.Instance.PlayBGM ("game");
+        AudioManager.Instance.PlayBGM ("game", true, 0.3f);
     }
 
     public void UpdateLevel (bool isCorrect) {
@@ -98,7 +108,7 @@ public class InGameManager : MonoBehaviour {
             NextLevel ();
         } else {
             //TODO:演出を入れる
-            //TODO:失敗時処理
+            Incorrect ();
         }
 
         tadashiManager.TadashiSetting (_tadashiNum);
@@ -112,6 +122,19 @@ public class InGameManager : MonoBehaviour {
         if (_tadashiNum < TadashiMax) {
             _tadashiNum++;
         }
+    }
+
+    private async void Incorrect () {
+        canClick = false;
+        for (int i = 0; i < 10; i++) {
+            UIManager.Instance.DisplayTadashiTextUI (
+                "間違ってて草wwwwwww",
+                2, -180 + 60 * i, -320 + (i % 2 == 0 ? 1 : 0) * 80
+            );
+        }
+
+        await Task.Delay (2000);
+        canClick = true;
     }
 
     public bool IsPlayebleStatus () {
@@ -137,10 +160,9 @@ public class InGameManager : MonoBehaviour {
 
     private void CheckBonus (int correctNum) {
         if (correctNum % BonusLine == 0) {
-            UIManager.Instance.ShowTadashiTextUI ();
             UIManager.Instance.DisplayTadashiTextUI (
                 string.Format ("{0}ただし!やるじゃん", correctNum),
-                1);
+                2);
 
             UIManager.Instance.ShowExtendedTimeUI ();
             UIManager.Instance.InitializeExtendedTimeUI ();
@@ -163,4 +185,5 @@ public class InGameManager : MonoBehaviour {
     private GameStatus _status;
     private int _tadashiNum;
     private int _correctNum;
+    private bool _canClick = true;
 }

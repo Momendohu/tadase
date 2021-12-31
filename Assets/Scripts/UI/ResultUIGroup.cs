@@ -9,12 +9,13 @@ public class ResultUIGroup : MonoBehaviour {
     }
 
     public void OnPushGameRestartButton () {
-        AudioManager.Instance.PlaySE ("button01");
+        AudioManager.Instance.PlaySE ("ohyear");
         UIManager.Instance.ShowTransitionBackground ();
         UIManager.Instance.TransitionIn (() => UIManager.Instance.OnPushGameRestartButton ());
     }
 
     public void OnPushGameTitleButton () {
+        AudioManager.Instance.FadeOutBGM ("game");
         AudioManager.Instance.PlaySE ("button01");
         UIManager.Instance.OnPushTitleButton ();
     }

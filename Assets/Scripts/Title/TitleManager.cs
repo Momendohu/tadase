@@ -16,7 +16,7 @@ public class TitleManager : MonoBehaviour {
     }
 
     public void OnPushRankingButton () {
-        AudioManager.Instance.PlaySE ("ohyear");
+        AudioManager.Instance.PlaySE ("button01");
         UIManager.Instance.OnPushRankingButton ();
     }
 

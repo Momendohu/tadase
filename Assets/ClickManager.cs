@@ -16,7 +16,10 @@ public class ClickManager : MonoBehaviour {
     }
 
     private void ClickGameObject () {
-        // ���N���b�N���ꂽ�ꏊ�̃I�u�W�F�N�g���擾
+        if (!inGameManager.canClick) {
+            return;
+        }
+
         if (Input.GetMouseButtonDown (0)) {
             Vector2 tapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
             Collider2D[] collider2ds = Physics2D.OverlapPointAll (tapPoint);

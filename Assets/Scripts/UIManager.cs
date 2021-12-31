@@ -30,8 +30,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
 
     private GameObject extendedTimeUIInstance = null;
 
-    private GameObject tadashiUIInstance = null;
-
     private GameObject countDownTextUIInstance = null;
 
     private GameObject transitionBackgroundInstance = null;
@@ -52,10 +50,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
 
     public void ShowTimeUI () {
         timeUIInstance = this.CreateUI (timeUI);
-    }
-
-    public void ShowTadashiTextUI () {
-        tadashiUIInstance = this.CreateUI (tadashiTextUI);
     }
 
     public void ShowTransitionBackground () {
@@ -165,13 +159,8 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         transitionBackgroundInstance.GetComponent<TransitionBackground> ().TransitionOut (onComplete, interval);
     }
 
-    public void DisplayTadashiTextUI (string str, float interval) {
-        if (!tadashiUIInstance) {
-            print ("tadashiUIInstanceがない");
-            return;
-        }
-
-        tadashiUIInstance.GetComponent<TadashiTextUI> ().Initialize (str, interval);
+    public void DisplayTadashiTextUI (string str, float interval, float targetPosY = -180, float targetPosX = -320) {
+        this.CreateUI (tadashiTextUI).GetComponent<TadashiTextUI> ().Initialize (str, interval, targetPosY, targetPosX);
     }
 
     public void InitializeCountDownTextUI (int countDownNum, Action onComplete) {
