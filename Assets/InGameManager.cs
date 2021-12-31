@@ -137,10 +137,10 @@ public class InGameManager : MonoBehaviour {
         AudioManager.Instance.PlaySE ("wrong", 0.5f);
         UIManager.Instance.DisplayTadashiTextUI (
             "間違ってて草wwwwwww",
-            1.5f
+            3f
         );
 
-        await Task.Delay (1500);
+        await Task.Delay (100);
         canClick = true;
     }
 
@@ -170,7 +170,7 @@ public class InGameManager : MonoBehaviour {
             AudioManager.Instance.PlaySE ("year1", 0.5f);
             UIManager.Instance.DisplayTadashiTextUI (
                 string.Format ("{0}ただし!やるじゃん", correctNum),
-                2);
+                2.5f);
 
             UIManager.Instance.ShowExtendedTimeUI ();
             UIManager.Instance.InitializeExtendedTimeUI ();
