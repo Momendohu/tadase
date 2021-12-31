@@ -10,7 +10,7 @@ public class TadashiManager : MonoBehaviour {
     public Sprite[] sprites;
 
     public enum RotateKind {
-        None = -1,
+        None = 0,
         X,
         Y,
         Z
@@ -119,8 +119,8 @@ public class TadashiManager : MonoBehaviour {
     const float RotateSpeedMinimux = 0.0f;
     const float RotateSpeedMax = 1.0f;
 
-    const int MoveProbability = 5;
-    const int RotateProbability = 5;
+    const int MoveProbability = 0;
+    const int RotateProbability = 0;
 
     const int TadashiMax = 3;
 

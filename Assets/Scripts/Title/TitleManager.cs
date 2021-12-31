@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour {
     void Awake () {
-        Model.Instance.Initialize ();
     }
 
     void Start () {
