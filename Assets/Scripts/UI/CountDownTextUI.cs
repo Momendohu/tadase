@@ -31,6 +31,7 @@ public class CountDownTextUI : MonoBehaviour {
         if (_prevCountInt > Mathf.CeilToInt (this._count)) {
             _prevCountInt = Mathf.CeilToInt (this._count);
             this.UpdateText (string.Format ("{0}", _prevCountInt));
+            AudioManager.Instance.PlaySE (string.Format ("count{0}", _prevCountInt));
             this.animateText ();
         }
 
@@ -39,6 +40,7 @@ public class CountDownTextUI : MonoBehaviour {
             if (this.isCountEnd) return;
             this.isCountEnd = true;
 
+            AudioManager.Instance.PlaySE ("horn", 0.2f);
             this.UpdateText ("スタート!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             //OPTIMIZE:とりあえず1秒待ち
@@ -66,6 +68,7 @@ public class CountDownTextUI : MonoBehaviour {
 
         this.SetAtive (true);
         this.UpdateText (string.Format ("{0}", Mathf.CeilToInt (countNum)));
+        AudioManager.Instance.PlaySE (string.Format ("count{0}", _prevCountInt));
         this.animateText ();
     }
 

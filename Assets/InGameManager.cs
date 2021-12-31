@@ -99,7 +99,7 @@ public class InGameManager : MonoBehaviour {
         UIManager.Instance.DisplayTransitionBackground ();
         UIManager.Instance.TransitionOut (() => StartGame (), 500);
 
-        AudioManager.Instance.PlayBGM ("game", true, 0.3f);
+        AudioManager.Instance.PlayBGM ("game", true, 0.1f);
     }
 
     public void UpdateLevel (bool isCorrect) {
