@@ -39,9 +39,6 @@ public class InGameManager : MonoBehaviour {
             case GameStatus.InGameReady:
                 tadashiManager.TadashiSetting (_tadashiNum);
 
-                UIManager.Instance.ShowScoreUI ();
-                UIManager.Instance.UpdateScoreUI (_correctNum.ToString ());
-
                 UIManager.Instance.ShowTimeUI ();
                 UIManager.Instance.UpdateTimeUI (_limitTime.ToString ());
 
@@ -85,8 +82,6 @@ public class InGameManager : MonoBehaviour {
         _status = GameStatus.StartCountDownReady;
         _tadashiNum = TadashiMinimum;
         _correctNum = 0;
-        _bonusScore = 0;
-        _score = 0;
         _limitTime = LimitMaxTime;
 
         UIManager.Instance.ShowCountDownTextUI ();
@@ -111,18 +106,9 @@ public class InGameManager : MonoBehaviour {
 
     public void NextLevel () {
         _correctNum++;
-
-        int addScore = CalcScore (_correctNum);
-        UIManager.Instance.DisplayScoreUIAddText (addScore.ToString ());
-        _score += addScore;
-
-        if (_score > Model.Instance.hiScore) {
-            Model.Instance.hiScore = _score;
-        }
-
-        UIManager.Instance.UpdateScoreUI (_score.ToString ());
-
         _limitTime += AddTime;
+
+        CheckBonus (_correctNum);
         UIManager.Instance.DisplayTimeUIAddText (AddTime.ToString ());
 
         if (_tadashiNum < TadashiMax) {
@@ -153,34 +139,26 @@ public class InGameManager : MonoBehaviour {
 
     private void ResetLevel () {
         _correctNum = 0;
-        _bonusScore = 0;
         _tadashiNum = TadashiMinimum;
     }
 
-    private int CalcScore (int correctNum) {
-        int bonus = CalcBonus (correctNum);
-
-        return bonus += 1;
-    }
-
-    private int CalcBonus (int correctNum) {
+    private void CheckBonus (int correctNum) {
         if (correctNum % BonusLine == 0) {
-            _bonusScore += AddBonusScore;
             UIManager.Instance.ShowTadashiTextUI ();
             UIManager.Instance.DisplayTadashiTextUI (
                 string.Format ("{0}コンボ！やるじゃん", correctNum),
                 1);
-        }
 
-        return _bonusScore;
+            UIManager.Instance.ShowExtendedTimeUI ();
+            UIManager.Instance.InitializeExtendedTimeUI ();
+        }
     }
 
-    const float LimitMaxTime = 2.99f;
+    const float LimitMaxTime = 20.99f;
     const int TadashiMinimum = 3;
     const int TadashiMax = 100;
 
     const int BonusLine = 5;
-    const int AddBonusScore = 2;
 
     const float AddTime = 1.0f;
 
@@ -189,6 +167,4 @@ public class InGameManager : MonoBehaviour {
     private GameStatus _status;
     private int _tadashiNum;
     private int _correctNum;
-    private int _bonusScore;
-    private int _score;
 }

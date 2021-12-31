@@ -12,7 +12,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     private GameObject timeUI = null;
 
     [SerializeField]
-    private GameObject scoreUI = null;
+    private GameObject extendedTimeUI = null;
 
     [SerializeField]
     private GameObject tadashiTextUI = null;
@@ -28,7 +28,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
 
     private GameObject timeUIInstance = null;
 
-    private GameObject scoreUIInstance = null;
+    private GameObject extendedTimeUIInstance = null;
 
     private GameObject tadashiUIInstance = null;
 
@@ -46,12 +46,12 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         this.CreateUI (uiResultGroup);
     }
 
-    public void ShowTimeUI () {
-        timeUIInstance = this.CreateUI (timeUI);
+    public void ShowExtendedTimeUI () {
+        extendedTimeUIInstance = this.CreateUI (extendedTimeUI);
     }
 
-    public void ShowScoreUI () {
-        scoreUIInstance = this.CreateUI (scoreUI);
+    public void ShowTimeUI () {
+        timeUIInstance = this.CreateUI (timeUI);
     }
 
     public void ShowTadashiTextUI () {
@@ -120,13 +120,13 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         timeUIInstance.GetComponent<TimeUI> ().UpdateText (str);
     }
 
-    public void UpdateScoreUI (string str) {
-        if (!scoreUIInstance) {
-            print ("scoreUIInstanceがない");
+    public void InitializeExtendedTimeUI () {
+        if (!extendedTimeUIInstance) {
+            print ("extendedTimeUIInstanceがない");
             return;
         }
 
-        scoreUIInstance.GetComponent<ScoreUI> ().UpdateText (str);
+        extendedTimeUIInstance.GetComponent<ExtendedTimeUI> ().Initialize ();
     }
 
     public void DisplayTimeUIAddText (string str) {
@@ -136,15 +136,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         }
 
         timeUIInstance.GetComponent<TimeUI> ().DisplayAddText (str);
-    }
-
-    public void DisplayScoreUIAddText (string str) {
-        if (!scoreUIInstance) {
-            print ("scoreUIInstanceがない");
-            return;
-        }
-
-        scoreUIInstance.GetComponent<ScoreUI> ().DisplayAddText (str);
     }
 
     public void TransitionIn (Action onComplete) {

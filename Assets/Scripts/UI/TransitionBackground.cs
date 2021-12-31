@@ -19,6 +19,7 @@ public class TransitionBackground : MonoBehaviour {
     }
 
     public void Display () {
+        background.transform.SetAsLastSibling ();
         background.raycastTarget = true;
         background.fillAmount = 1;
     }
