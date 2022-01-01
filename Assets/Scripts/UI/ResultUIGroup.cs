@@ -20,4 +20,15 @@ public class ResultUIGroup : MonoBehaviour {
         AudioManager.Instance.PlaySE ("button01");
         UIManager.Instance.OnPushTitleButton ();
     }
+
+    public void OnPushTweenButton () {
+        AudioManager.Instance.PlaySE ("button01");
+        naichilab.UnityRoomTweet.Tweet (
+            "extreme-tadashi",
+            string.Format ("えっ！「{0}ただし」だって！？そいつぁエクストリームだ！", Model.Instance.hiScore),
+            "unityroom",
+            "unity1week",
+            "エクストリームただし"
+        );
+    }
 }
