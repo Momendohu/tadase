@@ -202,7 +202,10 @@ namespace naichilab {
 
         public void OnCloseButtonClick () {
             closeButton.interactable = false;
-            this.popupper.Out (0.2f, () => UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync ("Ranking"));
+            AudioManager.Instance.PlaySE ("button01");
+            this.popupper.Out (0.2f, () => {
+                UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync ("Ranking");
+            });
         }
 
         private void MaskOffOn () {
