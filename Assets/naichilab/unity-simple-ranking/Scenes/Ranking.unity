@@ -765,6 +765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 699432289}
   - component: {fileID: 699432288}
+  - component: {fileID: 699432290}
   m_Layer: 0
   m_Name: RankingSceneManager
   m_TagString: Untagged
@@ -795,6 +796,7 @@ MonoBehaviour:
   readingNodePrefab: {fileID: 1697434335251524, guid: 4c6a250f3c6f843ef990e40389cb6254, type: 3}
   notFoundNodePrefab: {fileID: 1697434335251524, guid: 98a445350dbe3473e9e5158ac55d6e94, type: 3}
   unavailableNodePrefab: {fileID: 1697434335251524, guid: 8cfbc606367ac4d27b4a3c4b2d4646b5, type: 3}
+  popupper: {fileID: 699432290}
 --- !u!4 &699432289
 Transform:
   m_ObjectHideFlags: 0
@@ -809,6 +811,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &699432290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699432287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219588733a92c49b488d572bf474cdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 1909467650}
 --- !u!1 &725883833
 GameObject:
   m_ObjectHideFlags: 0
