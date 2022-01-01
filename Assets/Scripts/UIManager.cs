@@ -150,7 +150,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
         transitionBackgroundInstance.GetComponent<TransitionBackground> ().Display ();
     }
 
-    public void TransitionOut (Action onComplete, int interval = 0) {
+    public void TransitionOut (Action onComplete, float interval = 0) {
         if (!transitionBackgroundInstance) {
             print ("transitionBackgroundInstanceがない");
             return;

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,22 +37,31 @@ public class TransitionBackground : MonoBehaviour {
             .OnComplete (() => onComplete ());
     }
 
-    public async void TransitionOut (Action onComplete, int interval = 0) {
+    public void TransitionOut (Action onComplete, float interval = 0) {
         background.fillAmount = 1;
 
-        await Task.Delay (interval);
+        StartCoroutine (
+            WaitAsync (
+                interval,
+                () => {
+                    DOTween.To (
+                            () => background.fillAmount,
+                            num => background.fillAmount = num,
+                            0,
+                            0.5f
+                        )
+                        .SetEase (Ease.InOutQuart)
+                        .OnComplete (() => onComplete ());
 
-        DOTween.To (
-                () => background.fillAmount,
-                num => background.fillAmount = num,
-                0,
-                0.5f
-            )
-            .SetEase (Ease.InOutQuart)
-            .OnComplete (() => onComplete ());
+                    background.raycastTarget = false;
 
-        background.raycastTarget = false;
+                    onComplete ();
+                }
+            ));
+    }
 
+    private IEnumerator WaitAsync (float interval, Action onComplete) {
+        yield return new WaitForSeconds (interval);
         onComplete ();
     }
 }

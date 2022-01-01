@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +23,7 @@ public class CountDownTextUI : MonoBehaviour {
         CountDown ();
     }
 
-    private async void CountDown () {
+    private void CountDown () {
         if (!this.isInitialized) return;
 
         this._count -= Time.deltaTime;
@@ -44,10 +43,19 @@ public class CountDownTextUI : MonoBehaviour {
             this.UpdateText ("スタート!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             //OPTIMIZE:とりあえず1秒待ち
-            await Task.Delay (1000);
-            this.onComplete ();
-            Destroy (this.gameObject);
+            StartCoroutine (WaitAsync (
+                1,
+                () => {
+                    this.onComplete ();
+                    Destroy (this.gameObject);
+                }
+            ));
         }
+    }
+
+    private IEnumerator WaitAsync (float interval, Action onComplete) {
+        yield return new WaitForSeconds (interval);
+        onComplete ();
     }
 
     private void UpdateText (string str) {

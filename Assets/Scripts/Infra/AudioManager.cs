@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -73,29 +74,34 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager> {
 
     /// <summary>
     /// bgmをフェードアウトする
+    /// TODO:仮置き
     /// </summary>
-    public async void FadeOutBGM (string name, float targetVolume = 0, float updateSpeed = 0.01f) {
+    public void FadeOutBGM (string name, float targetVolume = 0, float updateSpeed = 0.01f) {
         if (!BGMSource.ContainsKey (name)) return;
         if (!BGMSource[name].isPlaying) return;
 
         var volume = BGMSource[name].volume;
-        while (true) {
-            volume -= updateSpeed;
-            BGMSource[name].volume = volume;
-            if (volume <= targetVolume) {
-                BGMSource[name].volume = targetVolume;
-                break;
-            }
-
+        volume -= updateSpeed;
+        BGMSource[name].volume = volume;
+        if (volume <= targetVolume) {
+            BGMSource[name].volume = targetVolume;
+            StopBGM (name);
+        } else {
             //OPTIMIZE:更新速度仮置き
-            await Task.Delay (1);
+            StartCoroutine (WaitOneFrame (() => FadeOutBGM (name, targetVolume, updateSpeed)));
         }
+    }
 
-        StopBGM (name);
+    //TODO:仮置き
+    //コルーチン呼び出し先がdestroyした場合途中で処理が止まるのでAudioManager内で処理する
+    private IEnumerator WaitOneFrame (Action onComplete) {
+        yield return null;
+        onComplete ();
     }
 
     /// <summary>
     /// bgmをフェードインする
+    /// TODO:async/awaitをコルーチンにする
     /// </summary>
     public async void FadeInBGM (string name, float targetVolume = 1, float updateSpeed = 0.01f, bool isLoop = true) {
         if (!BGMSource.ContainsKey (name)) return;

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class InGameManager : MonoBehaviour {
@@ -104,7 +103,7 @@ public class InGameManager : MonoBehaviour {
         UIManager.Instance.ShowCountDownTextUI ();
         UIManager.Instance.ShowTransitionBackground ();
         UIManager.Instance.DisplayTransitionBackground ();
-        UIManager.Instance.TransitionOut (() => StartGame (), 500);
+        UIManager.Instance.TransitionOut (() => StartGame (), 0.5f);
 
         AudioManager.Instance.PlayBGM ("game", true, 0.1f);
     }
@@ -132,7 +131,7 @@ public class InGameManager : MonoBehaviour {
         }
     }
 
-    private async void Incorrect () {
+    private void Incorrect () {
         canClick = false;
         AudioManager.Instance.PlaySE ("wrong", 0.5f);
         UIManager.Instance.DisplayTadashiTextUI (
@@ -140,7 +139,6 @@ public class InGameManager : MonoBehaviour {
             3f
         );
 
-        await Task.Delay (100);
         canClick = true;
     }
 
