@@ -53,9 +53,6 @@ public class TadashiEntity : MonoBehaviour {
         bool isCorrect = false;
         if (_isAnswer) {
             isCorrect = true;
-            Debug.Log ("正解");
-        } else {
-            Debug.Log ("不正解");
         }
 
         return isCorrect;
