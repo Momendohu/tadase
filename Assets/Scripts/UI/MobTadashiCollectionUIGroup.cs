@@ -9,7 +9,7 @@ public class MobTadashiCollectionUIGroup : MonoBehaviour {
     void Start () {
         InitializeData ();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 7; i++) {
             FactoryMobTadashi.ArgsMobTadashi tadashi;
 
             if (PlayerPrefs.GetInt (string.Format ("{0}", i), 0) > 0) {
@@ -21,7 +21,7 @@ public class MobTadashiCollectionUIGroup : MonoBehaviour {
             } else {
                 tadashi = new FactoryMobTadashi.ArgsMobTadashi () {
                     uid = -1,
-                    name = "???",
+                    name = "?????",
                     image = Resources.Load<Sprite> ("Images/tadashi/t-1"),
                 };
             }
@@ -44,9 +44,12 @@ public class MobTadashiCollectionUIGroup : MonoBehaviour {
         nameData.Add (0, "ジャスティスただし");
         nameData.Add (1, "ディストーションひずみ");
         nameData.Add (2, "ストップとまり");
-        nameData.Add (3, "カウンターひき");
+        nameData.Add (3, "エンシャントただし");
+        nameData.Add (4, "グレートキングおう");
+        nameData.Add (5, "アラビアンただし");
+        nameData.Add (6, "ユニコードただし");
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 7; i++) {
             imageData.Add (i, Resources.Load<Sprite> ("Images/tadashi/t" + i));
         }
     }

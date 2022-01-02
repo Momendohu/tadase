@@ -87,16 +87,51 @@ public class TadashiManager : MonoBehaviour {
     }
 
     private void SetAnswer () {
-        answerPictId = UnityEngine.Random.Range (1, sprites.Length);
+        //TODO:確率仮置き
+        answerPictId = GetPictIdAppliedWeightPreb ();
 
-        /*int pictId = -1;
+        /*
+        answerPictId = UnityEngine.Random.Range (1, sprites.Length);
+        int pictId = -1;
         while (pictId < 0 || answerPictId == pictId) {
             pictId = UnityEngine.Random.Range (0, sprites.Length);
         }
 
-        notAnswerPictId = pictId;*/
+        notAnswerPictId = pictId;
+        */
         notAnswerPictId = 0;
     }
+
+    //TODO:仮置き
+    private int GetPictIdAppliedWeightPreb () {
+        int sum = 0;
+        for (int i = 0; i < sprites.Length - 1; i++) {
+            sum += weightProbs[i];
+        }
+
+        int pick = UnityEngine.Random.Range (0, sum);
+
+        int select = 0;
+        for (int i = 0; i < sprites.Length; i++) {
+            select += weightProbs[i];
+            if (select >= pick) {
+                return (i + 1); //memo:id0をデフォルトに当てているため
+            }
+        }
+
+        print ("確率計算おかしいよ☆");
+        return 1;
+    }
+
+    //TODO:仮置き
+    private int[] weightProbs = {
+        100,
+        100,
+        100,
+        5,
+        3,
+        2,
+    };
 
     private void RandomPos (GameObject obj) {
         Vector2 pos = new Vector2 ();
