@@ -26,6 +26,7 @@ public class TitleManager : MonoBehaviour {
     }
 
     public void OnPushCollectionButton () {
+        AudioManager.Instance.PlaySE ("button01");
         UIManager.Instance.ShowMobTadashiCollectionUIGroup ();
     }
 }

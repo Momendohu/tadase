@@ -33,6 +33,7 @@ public class MobTadashiCollectionUIGroup : MonoBehaviour {
     }
 
     public void onPushCloseButton () {
+        AudioManager.Instance.PlaySE ("button01");
         Destroy (this.gameObject);
     }
 
