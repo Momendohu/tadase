@@ -47,7 +47,6 @@ public class TadashiManager : MonoBehaviour {
 
         GameObject obj = (GameObject) Resources.Load ("Prefabs/Tadashi");
         for (int idx = 0; idx < tadashiNum; idx++) {
-            int uniqueId = 0;
             int pictId = idx == 0 ? answerPictId : notAnswerPictId;
 
             TadashiEntity entity;
@@ -63,10 +62,14 @@ public class TadashiManager : MonoBehaviour {
 
             RandomPos (entity.gameObject);
 
-            entity.Initialzie (uniqueId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed, rotateKind);
-
-            uniqueId++;
+            //memo:uidにpictIDを入れている
+            entity.Initialzie (pictId, pictId, pictId == answerPictId, sprites[pictId], speed, rotateSpeed, rotateKind);
         }
+
+        //コレクション
+        PlayerPrefs.SetInt (string.Format ("{0}", answerPictId), 1);
+        PlayerPrefs.SetInt (string.Format ("{0}", notAnswerPictId), 1);
+        PlayerPrefs.Save ();
 
         DeactiveTadashi (tadashiNum);
 

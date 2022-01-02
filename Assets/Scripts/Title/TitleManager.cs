@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TitleManager : MonoBehaviour {
-    void Awake () {
-    }
+    void Awake () { }
 
     void Start () {
         AudioManager.Instance.PlayBGM ("title", true, 0.1f);
@@ -20,9 +19,13 @@ public class TitleManager : MonoBehaviour {
     }
 
     public void OnPushGameStartButton () {
-        AudioManager.Instance.PlaySE ("ohyear",0.5f);
+        AudioManager.Instance.PlaySE ("ohyear", 0.5f);
         AudioManager.Instance.FadeOutBGM ("title");
         UIManager.Instance.ShowTransitionBackground ();
         UIManager.Instance.TransitionIn (() => UIManager.Instance.OnPushGameStartButton ());
+    }
+
+    public void OnPushCollectionButton () {
+        UIManager.Instance.ShowMobTadashiCollectionUIGroup ();
     }
 }

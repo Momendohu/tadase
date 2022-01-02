@@ -26,6 +26,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
     [SerializeField]
     private GameObject gameEndUI = null;
 
+    [SerializeField]
+    private GameObject mobTadashiCollectionUIGroup = null;
+
     private GameObject timeUIInstance = null;
 
     private GameObject extendedTimeUIInstance = null;
@@ -42,6 +45,10 @@ public class UIManager : SingletonMonoBehaviour<UIManager> {
 
     public void ShowResultUIGroup () {
         this.CreateUI (uiResultGroup);
+    }
+
+    public void ShowMobTadashiCollectionUIGroup () {
+        this.CreateUI (mobTadashiCollectionUIGroup);
     }
 
     public void ShowExtendedTimeUI () {
