@@ -15,6 +15,8 @@ public class TadashiEntity : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         transform.Rotate (_rotateSpeed);
+        Debug.Log(transform.localEulerAngles.x + " : " + transform.localEulerAngles.y);
+        CheckRotation(transform.localEulerAngles.x, transform.localEulerAngles.y);
     }
 
     public void Initialzie (int uniqueId, int pictId, bool isAnswer, Sprite sprite, float speed, float rotateSpeed, TadashiManager.RotateKind rotateKind) {
@@ -47,6 +49,7 @@ public class TadashiEntity : MonoBehaviour {
         }
 
         rigidBody.velocity = new Vector2 (_speed, _speed);
+        _saveVelocity = rigidBody.velocity;
     }
 
     public bool CheckAnswer () {
@@ -80,7 +83,22 @@ public class TadashiEntity : MonoBehaviour {
         }
 
         if (rigidBody.velocity != velocity)
+        {
             rigidBody.velocity = velocity;
+            _saveVelocity = velocity;
+        }
+    }
+
+    void CheckRotation(float rotate_x, float rotate_y)
+    {
+        if (rotate_x == 90.0f || rotate_x == 270.0f)
+            rigidBody.velocity = Vector2.zero;
+
+        if (rotate_y == 90.0f || rotate_y == 270.0f)
+            rigidBody.velocity = Vector2.zero;
+
+        if (rigidBody.velocity == Vector2.zero && rigidBody.velocity != _saveVelocity)
+            rigidBody.velocity = _saveVelocity;
     }
 
     private int _uniqueId;
@@ -91,4 +109,5 @@ public class TadashiEntity : MonoBehaviour {
     private Rigidbody2D rigidBody = null;
     private float _speed = 0f;
     private Vector3 _rotateSpeed = Vector3.zero;
+    private Vector2 _saveVelocity = Vector2.zero;
 }
